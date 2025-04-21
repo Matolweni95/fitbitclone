@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      // Initialize Lucide icons
+      lucide.createIcons();
+      
+      // Handle scroll effect for header
+      window.addEventListener('scroll', function() {
+          const bannerHeight = document.querySelector('.banner')?.offsetHeight || 0;
+          const navContainer = document.getElementById('navContainer');
+          const navSpacer = document.getElementById('navSpacer');
+          
+          if (window.scrollY > bannerHeight) {
+              navContainer.classList.add('fixed', 'top-0', 'left-0', 'shadow-md');
+              navSpacer.classList.remove('hidden');
+          } else {
+              navContainer.classList.remove('fixed', 'top-0', 'left-0', 'shadow-md');
+              navSpacer.classList.add('hidden');
+          }
+      });
+      
+      // Handle mobile menu toggle
+      const menuToggle = document.getElementById('menuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      let menuOpen = false;
+      
+      menuToggle.addEventListener('click', function() {
+          menuOpen = !menuOpen;
+          
+          if (menuOpen) {
+              mobileMenu.classList.remove('hidden');
+              menuToggle.innerHTML = '<i data-lucide="x" class="w-6 h-6"></i>';
+          } else {
+              mobileMenu.classList.add('hidden');
+              menuToggle.innerHTML = '<i data-lucide="menu" class="w-6 h-6"></i>';
+          }
+
+          //carousel
+          
+          // Refresh Lucide icons after changing them
+          lucide.createIcons();
+      });
+</script>
+<script>
+  // Initialize Lucide icons
+  lucide.createIcons();
+  
+  // Carousel functionality
+  document.addEventListener('DOMContentLoaded', function() {
+      const scrollContainer = document.getElementById('scrollContainer');
+      const cardsContainer = document.getElementById('cardsContainer');
+      const prevButton = document.getElementById('prevButton');
+      const nextButton = document.getElementById('nextButton');
+      const progressBar = document.getElementById('progressBar');
+      
+      // Fixed card width and spacing
+      const cardWidth = 1148;
+      const mobileCardWidth = 280;
+      const cardSpacing = 24;
+      const animationDuration = 400;
+      const totalCards = 5;
+      
+      let currentIndex = 0;
+      let isDragging = false;
+      let isMobile = window.innerWidth < 768;
+      let scrollTimeout = null;
+      
+      // Check for mobile view
+      function checkMobile() {
+          isMobile = window.innerWidth < 768;
+          scrollToIndex(currentIndex);
+      }
+      
+      window.addEventListener('resize', checkMobile);
+      
+      // Scroll to specific index
+      function scrollToIndex(index) {
+          const activeCardWidth = isMobile ? mobileCardWidth : cardWidth;
+          const scrollAmount = index * (activeCardWidth + cardSpacing);
+          
+          scrollContainer.scrollTo({
+              left: scrollAmount,
+              behavior: 'smooth'
+          });
+          
+          updateButtons(index);
+          updateProgressBar(index);
+      }
+      
+      // Update navigation buttons visibility
+      function updateButtons(index) {
+          prevButton.classList.toggle('hidden', index === 0);
+          nextButton.classList.toggle('hidden', index >= totalCards - 1);
+      }
+      
+      // Update progress bar position
+      function updateProgressBar(index) {
+          progressBar.style.transform = `translateX(${index * 100}%)`;
+      }
+      
+      // Handle scroll events to detect current card
+      function handleScroll() {
+          if (isDragging) return;
+          
+          clearTimeout(scrollTimeout);
+          
+          scrollTimeout = setTimeout(() => {
+              const scrollPosition = scrollContainer.scrollLeft;
+              const activeCardWidth = isMobile ? mobileCardWidth : cardWidth;
+              const cardWidthWithSpacing = activeCardWidth + cardSpacing;
+              
+              const rawIndex = scrollPosition / cardWidthWithSpacing;
+              const newIndex = Math.round(rawIndex);
+              
+              if (newIndex !== currentIndex && newIndex >= 0 && newIndex < totalCards) {
+                  currentIndex = newIndex;
+                  updateButtons(currentIndex);
+                  updateProgressBar(currentIndex);
+              }
+          }, 50);
+      }
+      
+      // Drag functionality
+      function handleMouseDown(e) {
+          isDragging = true;
+          const startX = e.pageX;
+          const scrollLeft = scrollContainer.scrollLeft;
+          
+          function handleMouseMove(e) {
+              const x = e.pageX;
+              const distance = x - startX;
+              scrollContainer.scrollLeft = scrollLeft - distance;
+          }
+          
+          function handleMouseUp() {
+              isDragging = false;
+              document.removeEventListener('mousemove', handleMouseMove);
+              document.removeEventListener('mouseup', handleMouseUp);
+              
+              setTimeout(() => {
+                  const scrollPosition = scrollContainer.scrollLeft;
+                  const activeCardWidth = isMobile ? mobileCardWidth : cardWidth;
+                  const cardWidthWithSpacing = activeCardWidth + cardSpacing;
+                  
+                  const rawIndex = scrollPosition / cardWidthWithSpacing;
+                  let targetIndex = Math.round(rawIndex);
+                  
+                  targetIndex = Math.max(0, Math.min(totalCards - 1, targetIndex));
+                  scrollToIndex(targetIndex);
+                  currentIndex = targetIndex;
+              }, 50);
+          }
+          
+          document.addEventListener('mousemove', handleMouseMove);
+          document.addEventListener('mouseup', handleMouseUp);
+          
+          e.preventDefault();
+      }
+      
+      // Touch functionality
+      function handleTouchStart(e) {
+          isDragging = true;
+          const startX = e.touches[0].clientX;
+          const scrollLeft = scrollContainer.scrollLeft;
+          
+          function handleTouchMove(e) {
+              const x = e.touches[0].clientX;
+              const distance = x - startX;
+              scrollContainer.scrollLeft = scrollLeft - distance;
+          }
+          
+          function handleTouchEnd() {
+              isDragging = false;
+              document.removeEventListener('touchmove', handleTouchMove);
+              document.removeEventListener('touchend', handleTouchEnd);
+              
+              setTimeout(() => {
+                  const scrollPosition = scrollContainer.scrollLeft;
+                  const activeCardWidth = isMobile ? mobileCardWidth : cardWidth;
+                  const cardWidthWithSpacing = activeCardWidth + cardSpacing;
+                  
+                  const rawIndex = scrollPosition / cardWidthWithSpacing;
+                  let targetIndex = Math.round(rawIndex);
+                  
+                  targetIndex = Math.max(0, Math.min(totalCards - 1, targetIndex));
+                  scrollToIndex(targetIndex);
+                  currentIndex = targetIndex;
+              }, 50);
+          }
+          
+          document.addEventListener('touchmove', handleTouchMove, { passive: false });
+          document.addEventListener('touchend', handleTouchEnd);
+      }
+      
+      // Event listeners
+      scrollContainer.addEventListener('scroll', handleScroll);
+      scrollContainer.addEventListener('mousedown', handleMouseDown);
+      scrollContainer.addEventListener('touchstart', handleTouchStart);
+      
+      prevButton.addEventListener('click', function() {
+          if (currentIndex > 0) {
+              currentIndex--;
+              scrollToIndex(currentIndex);
+          }
+      });
+      
+      nextButton.addEventListener('click', function() {
+          if (currentIndex < totalCards - 1) {
+              currentIndex++;
+              scrollToIndex(currentIndex);
+          }
+      });
+      
+      // Initialize
+      updateButtons(currentIndex);
+  });
+</script>
+<script>
+  // Initialize Lucide icons
+  lucide.createIcons();
+  
+  // Toggle functionality for mobile view
+  document.addEventListener('DOMContentLoaded', function() {
+    const toggleButton = document.getElementById('toggleButton');
+    const collapsibleContent = document.getElementById('collapsibleContent');
+    const upIcon = document.getElementById('upIcon');
+    const downIcon = document.getElementById('downIcon');
+    
+    let isExpanded = true;
+    
+    toggleButton.addEventListener('click', function() {
+      isExpanded = !isExpanded;
+      
+      if (isExpanded) {
+        collapsibleContent.classList.remove('max-h-0', 'opacity-0');
+        collapsibleContent.classList.add('max-h-96', 'opacity-100');
+        upIcon.classList.remove('hidden');
+        downIcon.classList.add('hidden');
+      } else {
+        collapsibleContent.classList.remove('max-h-96', 'opacity-100');
+        collapsibleContent.classList.add('max-h-0', 'opacity-0');
+        upIcon.classList.add('hidden');
+        downIcon.classList.remove('hidden');
+      }
+    });
+  });
+</script>
+<script defer>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.faq-toggle');
+
+    buttons.forEach((button, index) => {
+      button.addEventListener('click', () => {
+        const currentlyOpen = document.querySelector('.faq-answer.show');
+        const currentIcon = document.querySelector('.faq-toggle span.icon.open');
+
+        if (currentlyOpen && currentlyOpen !== button.nextElementSibling) {
+          currentlyOpen.classList.remove('show');
+          currentlyOpen.previousElementSibling.querySelector('.icon').textContent = '+';
+          currentlyOpen.previousElementSibling.querySelector('.icon').classList.remove('open');
+        }
+
+        const answer = button.nextElementSibling;
+        const icon = button.querySelector('.icon');
+
+        if (answer.classList.contains('show')) {
+          answer.classList.remove('show');
+          icon.textContent = '+';
+          icon.classList.remove('open');
+        } else {
+          answer.classList.add('show');
+          icon.textContent = '−';
+          icon.classList.add('open');
+        }
+      });
+    });
+  });
+</script>
+  </body>
+</html>

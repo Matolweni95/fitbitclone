@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@import url(https://db.onlinewebfonts.com/c/41cdafd19e156a1f74759f9c88b878ff?family=Google+Sans+Text+Regular); 
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+* {
+  font-family: "Google Sans Text Regular"; 
+}
+
+/* * {
+  font-family: "Special Gothic", sans-serif;
+} */
+                
+
+@theme {
+  --color-blue: #1967d2;
+  --color-gray: #e8f0fe;
+}
+
+p, div {
+  line-height: normal;
+}
+
+.hero{
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 700;
+}
+
+.hero-text {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 24px;
+  --superscript-margin-left: 2px;
+}
+
+.pixels {
+  font-size: 40px !;
+  font-weight: 700;
+}
+
+.offerheading {
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 40px;
+}
+
+.spacing {
+  line-height: 24px;
+}
+
+.space {
+  line-height: 20px;
+}
+
+.offerspace {
+  line-height: 30px;
+}
+
+.line {
+  line-height: 56px;
+}
+.fitbit {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: .1px;
+  line-height: 24px;
+}
+
+.premiumheader {
+  font-size: 48px;
+}
+
