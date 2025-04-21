@@ -1,12 +1,16 @@
-# React + Vite
+📘 Project Info
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project was originally intended to be built using React. I began development with that in mind, but later realized that React was not allowed for the task. Unfortunately, I only discovered this limitation after some progress had already been made.
 
-Currently, two official plugins are available:
+As a result, while the final implementation doesn't use React, you might notice traces of that early planning in the structure or code style.
+⚙️ Running the App
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+To run the app:
 
-## Expanding the ESLint configuration
+  1.   Make sure you have the Live Server extension installed (e.g., in VS Code).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+  2.  Right-click on the index.html file and select "Open with Live Server".
+
+  3.  The app will open in your default browser.
+
+No additional setup is required.
