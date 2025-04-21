@@ -1,290 +1,1389 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-    <script>
-      // Initialize Lucide icons
-      lucide.createIcons();
-      
-      // Handle scroll effect for header
-      window.addEventListener('scroll', function() {
-          const bannerHeight = document.querySelector('.banner')?.offsetHeight || 0;
-          const navContainer = document.getElementById('navContainer');
-          const navSpacer = document.getElementById('navSpacer');
-          
-          if (window.scrollY > bannerHeight) {
-              navContainer.classList.add('fixed', 'top-0', 'left-0', 'shadow-md');
-              navSpacer.classList.remove('hidden');
-          } else {
-              navContainer.classList.remove('fixed', 'top-0', 'left-0', 'shadow-md');
-              navSpacer.classList.add('hidden');
-          }
-      });
-      
-      // Handle mobile menu toggle
-      const menuToggle = document.getElementById('menuToggle');
-      const mobileMenu = document.getElementById('mobileMenu');
-      let menuOpen = false;
-      
-      menuToggle.addEventListener('click', function() {
-          menuOpen = !menuOpen;
-          
-          if (menuOpen) {
-              mobileMenu.classList.remove('hidden');
-              menuToggle.innerHTML = '<i data-lucide="x" class="w-6 h-6"></i>';
-          } else {
-              mobileMenu.classList.add('hidden');
-              menuToggle.innerHTML = '<i data-lucide="menu" class="w-6 h-6"></i>';
-          }
+<head>
+    <link href="https://db.onlinewebfonts.com/c/41cdafd19e156a1f74759f9c88b878ff?family=Google+Sans+Text+Regular" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitbit Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            font-family: "Google Sans Text Regular"; 
+        }
 
-          //carousel
+        .spacing {
+            letter-spacing: normal;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .faq-answer.hidden {
+            display: none;
+        }
+
+        .faq-answer.show {
+            display: block;
+        }
+
+        .offerheading {
+            font-size: 32px;
+            font-weight: 400;
+            line-height: 40px;
+        }
+
+        .spacing {
+            line-height: 24px;
+        }
+
+        .space {
+            -height: 20px;
+        }
+
+        .offerspace {
+            line-height: 30px;
+        }
+
+        .line {
+            line-height: 56px;
+        }
+
+        .linespace {
+            line-height: 49px;
+            letter-spacing: 0.5px;
+        }
+
+        .fitbit {
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: .1px;
+            line-height: 24px;
+        }
+
+        .premiumheader {
+            font-size: 48px;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+            
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        #mobileMenu {
+            overflow-y: auto;
+            height: 100vh;
+        }
+
+      </style>
+</head>
+<body>
+    <header class="relative">
+        <!-- Banner -->
+        <div class="banner bg-[#1967d2] text-white w-full text-center py-[12px] px-4">
+            <p class="text-sm md:text-[16px]">
+                Get the new Pixel 9a (Unlocked) for as low as $99 with eligible trade-in, 
+                plus get $100 in Google Store credit. Ends 4/23.<sup>^</sup>
+                <a href="#" class="ml-2 underline">Learn more</a>
+            </p>
+        </div>
+
+        <!-- Navigation -->
+        <div id="navContainer" class="w-full bg-white z-50">
+            <nav class="flex items-center justify-between pl-4 pr-4 md:pl-[20px] md:pr-[20px] h-[56px]">
+                <div class="flex items-center gap-[24px]">
+                    <!-- Hamburger -->
+                    <button id="menuToggle" class="lg:hidden p-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                    <!-- Logo -->
+                    <a href="#">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <g>
+                                <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z" />
+                                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z" />
+                                <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z" />
+                                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z" />
+                            </g>
+                        </svg>
+                    </a>
+
+                    <!-- Desktop Links -->
+                    <div class="hidden md:!block text-[#3C4043]">                        
+                        <a href="#" class="text-[14px] hover:text-blue-600 mr-[16px]">Phones</a>
+                        <a href="#" class="text-[14px] hover:text-blue-600 mr-[16px]">Earbuds</a>
+                        <a href="#" class="text-[14px] hover:text-blue-600 mr-[16px]">Tablets</a>
+                        <a href="#" class="text-[14px] hover:text-blue-600 mr-[16px]">Watches & Trackers</a>
+                        <a href="#" class="text-[14px] hover:text-blue-600 mr-[16px]">Smart Home</a>
+                        <a href="#" class="text-[14px] hover:text-blue-600 mr-[16px]">Accessories</a>
+                        <a href="#" class="text-[14px] hover:text-blue-600 mr-[16px]">Offers</a>
+                        <a href="#" class="text-[14px] hover:text-blue-600 mr-[16px]">Support</a>
+                    </div>
+                </div>
+
+                <!-- Right Side -->
+                <div class="flex items-center space-x-4">
+                    <div class="p-2 rounded-full">
+                        <svg viewBox="0 0 24 24" class="w-6 h-6"  fill="#3C4043"><g class=""><path d="M15.5,14h-0.8l-0.3-0.3c1-1.1,1.6-2.6,1.6-4.2C16,5.9,13.1,3,9.5,3S3,5.9,3,9.5C3,13.1,5.9,16,9.5,16c1.6,0,3.1-0.6,4.2-1.6 l0.3,0.3v0.8l5,5l1.5-1.5L15.5,14z M9.5,14C7,14,5,12,5,9.5C5,7,7,5,9.5,5S14,7,14,9.5C14,12,12,14,9.5,14z"></path></g></svg>                   
+                     </div>
+                    <div class="p-2 hover:bg-gray-100 rounded-full">
+                        <svg viewBox="0 0 24 24" class="w-6 h-6" fill="#3C4043"><g class=""><path d="M7,18c-1.1,0-2,0.9-2,2s0.9,2,2,2s2-0.9,2-2S8.1,18,7,18z M1,4h2l3.6,7.6L5.2,14C5.1,14.3,5,14.7,5,15c0,1.1,0.9,2,2,2h12 v-2H7.4c-0.1,0-0.2-0.1-0.2-0.2c0,0,0-0.1,0-0.1L8.1,13h7.4c0.8,0,1.4-0.4,1.7-1l3.6-6.5C21,5.3,21,5.2,21,5c0-0.6-0.4-1-1-1H5.2 L4.8,3.1C4.5,2.5,3.8,2,3,2H1V4z M17,18c-1.1,0-2,0.9-2,2s0.9,2,2,2s2-0.9,2-2S18.1,18,17,18z"></path></g></svg>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-[#bf360c] text-white flex items-center justify-center">
+                        M
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden lg:hidden absolute left-0 right-0 bg-white z-40 overflow-y-auto shadow-lg">
+                <div class="flex flex-col text-[#3C4043] space-y-2 pt-[27px]">                    
+                    <div class="flex items-center">
+                        <div>
+                            <img class="w-[48px] h-[48px] ml-[24px] mr-[12px] object-cover no-repeat" src="src/assets/pixel9.png"/>
+                        </div>
+                        <div>
+                            <a href="#" class="text-[16px] hover:text-blue-600">Phones</a>                    
+                        </div>  
+                    </div>
+                    <div class="flex items-center">
+                        <div>
+                            <img class="w-[48px] h-[48px] ml-[24px] mr-[12px] object-cover" src="src/assets/pixelbud.png"/>
+                        </div>
+                        <div>
+                            <a href="#" class="text-sm hover:text-blue-600">Earbuds</a>                   
+                        </div>  
+                    </div>
+                    <div class="flex items-center">
+                        <div>
+                            <img class="w-[48px] h-[48px] ml-[24px] mr-[12px] object-cover" src="src/assets/pixeltab.png"/>
+                        </div>
+                        <div>
+                            <a href="#" class="text-sm hover:text-blue-600">Tablets</a>                  
+                        </div>  
+                    </div>
+                    <div class="flex items-center">
+                        <div>
+                            <img class="w-[48px] h-[48px] ml-[24px] mr-[12px] object-cover" src="src/assets/navwatch.png"/>
+                        </div>
+                        <div>
+                            <a href="#" class="text-sm hover:text-blue-600">Watches & Trackers</a>                     
+                        </div>  
+                    </div>
+                    <div class="flex items-center">
+                        <div>
+                            <img class="w-[48px] h-[48px] ml-[24px] mr-[12px] object-cover" src="src/assets/navsmart.png"/>
+                        </div>
+                        <div>
+                            <a href="#" class="text-sm hover:text-blue-600">Smart Home</a>                           
+                        </div>  
+                    </div>
+                    <div class="flex items-center">
+                        <div>
+                            <img class="w-[48px] h-[48px] ml-[24px] mr-[12px] object-cover" src="src/assets/navcover.png"/>
+                        </div>
+                        <div>
+                            <a href="#" class="text-sm hover:text-blue-600">Accessories</a>                          
+                        </div>  
+                    </div>
+                    <div class="flex items-center">
+                        <div>
+                            <img class="w-[48px] h-[48px]] ml-[24px] mr-[12px] object-cover" src="src/assets/navoffer.png"/>
+                        </div>
+                        <div>
+                            <a href="#" class="text-sm hover:text-blue-600">Offers</a>
+                        </div>  
+                    </div>
+                    <div class="flex items-center">
+                        <div>
+                            <div class="w-[48px] flex items-center h-[48px] ml-[37px] mr-[0px]">
+                                <svg viewBox="0 0 24 24" width="24" height="24">
+                                    <g>
+                                        <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z" />
+                                        <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z" />
+                                        <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z" />
+                                        <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z" />
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                        <div>
+                            <a href="#" class="text-sm hover:text-blue-600">Support</a>
+                        </div>  
+                    </div>
+                    <div class="flex border-t border-gray-300 ">
+                        <div
+                            class="w-[48px] ml-[37px]  mt-[30px] h-[48px] bg-no-repeat"
+                            style="background-image: url('https://storage.googleapis.com/mannequin/blobs/588c0eb3-02fe-42b4-9d78-7a87bf32ed2f.svg');">
+                            </div>
+                        <div class="mt-[30px]">
+                            <h1>Orders</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Spacer to avoid jump -->
+        <div id="navSpacer" class="hidden" style="height: 56px;"></div>
+    </header>
+
+    <!-- Hero section -->
+    <section class="bg-[#e8f0fe] text-[#3C4043] py-[40px] px-[24px] md:py-[20px] mx-6">
+        <div class="mx-auto text-center md:max-w-[429px]!">
+            <h2 class="text-[18px] md:text-[20px] md:leading-[26px] font-[700] mb-4">Google Store is the home for all things Fitbit.</h2>
+            <p class="hero-text">
+                Shop below or get help with your Fitbit account <a href="#" class="text-blue-600 underline hover:bg-blue-100">here</a>
+                .
+            </p>
+        </div>
+    </section>
+
+    <!--  -->
+    <section class="pt-[40px] text-[#3C4043] md:pt-[71px] md:px-6">
+        <div class="flex flex-col gap-[58px]">
+            <h2 class="text-[24px] md:text-[40px] font-[700] text-center">Pixel and Fitbit keep you moving.</h2>
+            
+            <div class="flex flex-wrap md:gap-[20px] mt-[3px] md:flex-nowrap justify-center md:ml-[25px]">
+                <div class="flex flex-col items-center w-1/2 md:w-[212px] ">
+                    <div class="bg-gray-50 transform hover:scale-[1.03] transition-transform duration-300 h-[203px] w-[197px] md:w-[212px] rounded-[28px] aspect-square flex items-center justify-center">
+                        <img src="src/assets/smartwatches.jpg" alt="Smartwatches" class="rounded-[28px] md:h-[212px]" />
+                    </div>
+                    <h3 class="text-[16px] font-medium text-center py-[28px]">Smartwatches</h3>
+                </div>
+                <div class="flex flex-col items-center w-1/2 md:w-[212px]">
+                    <div class="bg-gray-50 h-[203px] transform hover:scale-[1.03] transition-transform duration-300 w-[197px] md:w-[212px] rounded-[28px] aspect-square flex items-center justify-center">
+                        <img src="src/assets/trackers.png" alt="Fitbit Trackers" class="rounded-[28px] md:h-[212px]" />
+                    </div>
+                    <h3 class="text-[16px] font-medium text-center py-[24px]">Fitbit Trackers</h3>
+                </div>
+                <div class="flex flex-col items-center w-1/2 md:w-[212px] md:h-[284px]">
+                    <div class="bg-gray-50 h-[203px] transform hover:scale-[1.03] transition-transform duration-300 w-[197px] md:w-[212px] rounded-[28px] aspect-square flex items-center justify-center">
+                        <img src="src/assets/compare.jpg" alt="Compare products" class="rounded-[28px]" />
+                    </div>
+                    <h3 class="text-[16px] font-medium text-center py-[24px]">Compare products</h3>
+                </div>
+                <div class="flex flex-col items-center w-1/2 md:w-[212px] md:h-[284px]">
+                    <div class="bg-gray-50 h-[203px] transform hover:scale-[1.03] transition-transform duration-300 w-[197px] md:w-[212px] rounded-[28px] aspect-square flex items-center justify-center">
+                        <img src="src/assets/Accessories.jpg" alt="Accessories" class="rounded-[28px]" />
+                    </div>
+                    <h3 class="text-[16px] font-medium text-center py-[24px]">Accessories</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="relative w-full max-w-full text-[#3C4043] mx-auto mt-[20px] md:mt-20">
+        <!-- Outer container with scroll functionality -->
+        <div 
+            id="scrollContainer"
+            class="overflow-x-auto hide-scrollbar cursor-grab"
+            style="scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none;"
+        >
+            <!-- Inner container for cards with proper spacing -->
+            <div class="flex pl-7" id="cardsContainer">
+                <!-- Card 1 -->
+                <div class="flex-shrink-0 relative transition-all duration-500 md:w-[1148px]" style="margin-right: 24px;">
+                    <div class="rounded-[28px] overflow-hidden bg-[#f5f3ef] w-[280px] md:w-[1148px] h-[718.5px] lg:h-[600px] flex flex-col md:flex-row items-center md:items-stretch!">
+                        <div class="pt-[24px] mt-[40px] md:p-10 flex flex-col justify-center md:w-1/2 gap-4 md:pl-28 items-center md:items-start md:items-stretch text-center md:text-left">
+                            <p class="text-gray-700">Now in two sizes</p>
+                            <h2 class="text-[32px] md:text-[60px] font-bold text-gray-800">Google Pixel Watch 3</h2>
+                            <p class="text-gray-700">Goals. Guidance. Gorgeous.</p>
+                            <div>
+                                <p class="text-[20px] font-[700]0">From $349.99</p>
+                                <p class="text-xs text-gray-600 mb-6">or $29.17/month with 12-month financing*</p>
+                            </div>
+                            <button class="bg-blue-600 text-white rounded w-32 h-10 hover:bg-[#3e80d9] transition-all duration-300">
+                                Learn more
+                            </button>
+                        </div>
+                        <div class="w-full md:w-1/2 h-full flex items-end justify-center">
+                            <img
+                              src="/src/assets/watch3.png"
+                              alt="Google Pixel Watch 3"
+                              class="max-h-full w-auto"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="flex-shrink-0 relative transition-all duration-500 md:w-[1148px]" style="margin-right: 24px;">
+                    <div class="rounded-[28px] overflow-hidden bg-[#ffd7ca] w-[280px] md:w-[1148px] h-[718.5px] lg:h-[600px] flex flex-col md:flex-row items-center md:items-stretch">
+                        <div class="pt-[24px] mt-[40px] md:p-10 flex flex-col justify-center md:w-1/2 gap-4 md:pl-28 items-center md:items-start md:items-stretch text-center md:text-left">
+                            <h2 class="text-[32px] md:text-[60px] font-bold text-gray-800">Fitbit Charge 6</h2>
+                            <p class="text-gray-700">Redefine your routine</p>
+                            <div>
+                                <p class="text-[20px] font-[700]">$159.95</p>
+                                <p class="text-xs text-gray-600 mb-6">or $13.33/month with 12-month financing*</p>
+                            </div>
+                            <button class="bg-blue-600 hover:bg-[#3e80d9] transition-all duration-300 text-white rounded w-32 h-10">
+                                Learn more
+                            </button>
+                        </div>
+                        <div class="w-full md:w-1/2 h-full flex items-end justify-center">
+                            <img
+                                src="/src/assets/charge6.jpg"
+                                alt="Fitbit Charge 6"
+                                class="max-h-full w-auto"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="flex-shrink-0 relative transition-all duration-500 md:w-[1148px]" style="margin-right: 24px;">
+                    <div class="rounded-[28px] overflow-hidden bg-[#e7c0ff] w-[280px] md:w-[1148px] h-[718.5px] lg:h-[600px] flex flex-col md:flex-row items-center md:items-stretch">
+                        <div class="pt-[24px] mt-[40px] md:p-10 flex flex-col justify-center md:w-1/2 gap-4 md:pl-28 items-center md:items-start md:items-stretch text-center md:text-left">
+                            <h2 class="text-[32px] md:text-[60px] font-bold text-gray-800">Fitbit Ace LTE</h2>
+                            <p class="text-gray-700">Know where your wild things are.<sup class="text-[10px]">1</sup></p>
+                            <div>
+                                <div class="flex gap-2 items-center">
+                                    <p class="text-[20px] font-[700]">$149.99</p>
+                                    <p class="text-[16px] line-through ">$179.99</p>
+                                    <div class="flex items-center gap-2 bg-[#e6f4ea] py-[4px] px-[8px] w-[100px] rounded-[8px]">
+                                        <div>
+                                            <svg width="15" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM13 20.01L4 11V4h7v-.01l9 9-7 7.02zM8 6.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" fill="#5F6368"></path></svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-[13px] ">Save $30</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-gray-600 mb-6">or $16.67/month with 12-month financing*</p>
+                            </div>
+                            <button class="bg-blue-600 hover:bg-[#3e80d9] transition-all duration-300 text-white rounded w-32 h-10">
+                                Learn more
+                            </button>
+                        </div>
+                        <div class="w-full md:w-1/2 h-full flex items-end justify-center">
+                            <img
+                                src="/src/assets/AceLTE.jpg"
+                                alt="Fitbit Ace LTE"
+                                class="max-h-full w-auto"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="flex-shrink-0 relative transition-all duration-500 md:w-[1148px]" style="margin-right: 24px;">
+                    <div class="rounded-[28px] overflow-hidden bg-[#efede9] w-[280px] md:w-[1148px] h-[718.5px] lg:h-[600px] flex flex-col md:flex-row items-center md:items-stretch">
+                        <div class="pt-[24px] mt-[40px] md:p-10 flex flex-col justify-center md:w-1/2 gap-4 md:pl-28 items-center md:items-start md:items-stretch text-center md:text-left">
+                            <h2 class="text-[32px] md:text-[60px] font-bold text-gray-800">Fitbit Sense 2</h2>
+                            <p class="text-gray-700">Manage stress and sleep better</p>
+                            <div>
+                                <p class="text-[20px] font-[700]">From $249.95</p>
+                                <p class="text-xs text-gray-600 mb-6">or $20.83/month with 24-month financing*</p>
+                            </div>
+                            <button class="bg-blue-600 hover:bg-[#3e80d9] transition-all duration-300 text-white rounded w-32 h-10">
+                                Learn more
+                            </button>
+                        </div>
+                        <div class="w-full md:w-1/2 h-full flex items-end justify-center">
+                            <img
+                                src="/src/assets/sense2.jpg"
+                                alt="Fitbit Sense 2"
+                                class="max-h-full w-auto"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="flex-shrink-0 relative transition-all duration-500 md:w-[1148px]" style="margin-right: 24px;">
+                    <div class="rounded-[28px] overflow-hidden bg-[#d5e0ea] w-[280px] md:w-[1148px] h-[718.5px] lg:h-[600px] flex flex-col md:flex-row items-center md:items-stretch!">
+                        <div class="pt-[24px] mt-[40px] md:p-10 flex flex-col justify-center md:w-1/2 gap-4 md:pl-28 items-center md:items-start md:items-stretch text-center md:text-left">
+                            <h2 class="text-[32px] md:text-[60px] font-bold text-gray-800">Fitbit Versa 4</h2>
+                            <p class="text-gray-700">Designed for fitness</p>
+                            <div>
+                                <p class="text-[20px] font-[700]">From $199.95</p>
+                                <p class="text-xs text-gray-600 mb-6">or $16.66/month with 24-month financing*</p>
+                            </div>
+                            <button class="bg-blue-600 hover:bg-[#3e80d9] transition-all duration-300 text-white rounded w-32 h-10">
+                                Learn more
+                            </button>
+                        </div>
+                        <div class="w-full md:w-1/2 h-full flex items-end justify-center">
+                            <img
+                                src="/src/assets/versa4.jpg"
+                                alt="Fitbit Versa 4"
+                                class="max-h-full w-auto"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Extra spacing element for the last card -->
+                <div class="flex-shrink-0 w-1"></div>
+            </div>
+        </div>
+
+        <!-- Navigation buttons -->
+        <div class="hidden md:!block absolute w-full pointer-events-none">
+            <div class="container mx-auto px-4 md:px-8 relative">
+                <button
+                    id="prevButton"
+                    class="absolute left-0 md:left-[-30px] bottom-[245px] rounded-full bg-white shadow-md h-10 w-10 md:h-14 md:w-14 flex items-center justify-center z-10 pointer-events-auto hidden"
+                >
+                    <i data-lucide="arrow-left" class="h-5 w-5 md:h-6 md:w-6"></i>
+                    <span class="sr-only">Previous slide</span>
+                </button>
+
+                <button
+                    id="nextButton"
+                    class="absolute right-0 md:right-[82px] bottom-[245px] rounded-full bg-white shadow-md h-10 w-10 md:h-14 md:w-14 flex items-center justify-center z-10 pointer-events-auto"
+                >
+                    <i data-lucide="arrow-right" class="h-5 w-5 md:h-6 md:w-6"></i>
+                    <span class="sr-only">Next slide</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Progress indicator -->
+        <div class="mt-[40px] md:mt-10 px-4 md:px-8">
+            <div class="relative h-0.5 bg-gray-200 rounded-full">
+                <div 
+                    id="progressBar"
+                    class="absolute h-0.5 bg-gray-600 rounded-full transition-all"
+                    style="left: 0; width: 20%; transform: translateX(0%); transition-duration: 400ms;"
+                />
+            </div>
+        </div>
+    </div>
+
+    <div class='bg-[#f5f3ef] mt-[46px] mx-6 rounded-3xl overflow-hidden'>
+        <!-- Desktop layout - all in one row -->
+        <div class='hidden md:!flex items-center justify-between md:py-[20px] md:gap-[20px] md:px-[40px]'>
+            <div class='flex items-center gap-4 '>
+            <img src="src/assets/tag.png" class='h-12 w-12 object-contain text-blue-600' alt="Tag icon" />
+            <div>
+                <h4 class='font-bold text-[#3C4043] text-lg md:text-[16px] font-[400] offerspace'>
+                Get 2 years of data for your smartwatch on us when you buy any Pixel Watch 3 (LTE).<sup class='md:text-[10px]'>§§</sup>
+                </h4>
+                <p class='text-gray-700 mt-2'>
+                Data from Google Fi Wireless to power your messaging, navigation, and music on the go. Texting works with your current phone number at no extra cost. Calling not supported. Return of the watch terminates data service.
+                </p>
+            </div>
+            </div>
+            <div class='flex items-center'>
+            <button class='flex items-center text-blue-600 font-medium'>
+                Buy <i data-lucide="chevron-right" class='ml-1'></i>
+            </button>
+            </div>
+        </div>
+    
+        <!-- Mobile layout - stacked with toggle -->
+        <div class='md:hidden'>
+            <!-- Header with toggle -->
+            <div class='flex items-center justify-between p-[16px]'>
+            <div class='flex items-center gap-4'>
+                <img src="src/assets/tag.png" class='h-[39px] max-w-[36px] object-contain text-blue-600' alt="Tag icon" />
+                <h4 class='font-bold text-gray-800 text-[16px] spacing'>
+                Get 2 years of data for your smartwatch on us when you buy any Pixel Watch 3 (LTE).<sup>§§</sup>
+                </h4>
+                <div class="border-b-2 border-gray-700"></div>
+            </div>
+            <button class='text-gray-700' id="toggleButton">
+                <i data-lucide="chevron-up" id="upIcon" size="24"></i>
+                <i data-lucide="chevron-down" id="downIcon" size="24" class="hidden"></i>
+            </button>
+            </div>
+    
+            <!-- Collapsible content with animation -->
+            <div id="collapsibleContent" class="transition-all duration-300 ease-in-out overflow-hidden max-h-96 opacity-100">
+            <!-- Description text -->
+            <div class='px-[16px] pt-[12px] pb-4 border-t border-gray-300'>
+                <p class='text-gray-700 spacing text-[16px]'>
+                Data from Google Fi Wireless to power your messaging, navigation, and music on the go. Texting works with your current phone number at no extra cost. Calling not supported. Return of the watch terminates data service.
+                </p>
+            </div>
+    
+            <!-- Buy button -->
+            <div class='px-6 pb-6'>
+                <button class='flex items-center text-blue-600 font-medium'>
+                Buy <i data-lucide="chevron-right" class='ml-1'></i>
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+        
+    <div class='flex text-[#3C4043] flex-col gap-6 md:gap-4 mt-[40px] lg:mt-[80px] bg-gray-50 rounded-3xl mx-10 justify-center items-center py-[40px] lg:py-[20px]'>
+        <div>
+            <img src="src/assets/comparewatch.png" width="178" height="120" alt="Pixel Watch" class='h-[144px] w-[180px]' />
+        </div>
+        <div>
+            <h1 class='text-[22px] lg:text-[32px] font-[700] md:pb-[7px]'>Which one is right for you?</h1>
+        </div>
+        <div class='flex items-center text-blue-600 md:pb-[5px] font-medium'>
+            <button class="hover:underline">Compare All</button>
+            <i data-lucide="chevron-right" class='ml-1'></i>
+        </div>
+    </div>
+        
+    <!-- Features Section -->
+    <section class="pt-[113px] text-[#3C4043]">
+        <div>
+            <h2 class="text-[24px] lg:text-[40px] text-center font-[700] mb-9">Deep dive into the technology</h2>
+                <div class="flex md:flex-row flex-wrap justify-center gap-[60px]">
+                    <!-- Feature 1 -->
+                    <div class="text-center">
+                        <img src="/src/assets/fitbitapp.jpg" alt="Fitbit app" width="370" height="370" class="rounded-[28px] mb-[32px] object-cover w-[418px] h-[418px] md:h-[369.333px]" />
+                        <div class="flex flex-col w-[402px] md:w-[360px]">
+                        <h3 class="text-[18px] md:text-[20px] font-[700] mb-4">Fitbit app</h3>
+                        <p class="text-gray-600 text-[16px] spacing mb-[30px]">Designed to keep you close to your goals, boost your motivation, and show your progress throughout your health and fitness journey.</p>
+                        </div>
+                        <div class="flex justify-center text-blue">
+                        <a href="#" class="text-blue-600 font-medium hover:underline">Learn more</a>
+                        <i class="text-blue-600" data-lucide="chevron-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="text-center">
+                        <img src="/src/assets/googleapps.jpg" alt="Google apps" width="370" height="370" class="rounded-[28px] mb-[32px] object-cover w-[418px] h-[418px] md:h-[369.333px]" />
+                        <div class="flex flex-col w-[402px] md:w-[360px]">
+                        <h3 class="text-[18px] md:text-[20px] font-[700] mb-4">Google apps</h3>
+                        <p class="text-gray-600 text-[16px] spacing mb-[30px]">Get there faster. Make purchases simpler. Welcome Google Maps and Google Wallet to your Fitbit smartwatch.</p>
+                        </div>
+                        <div class="flex justify-center text-blue">
+                        <a href="#" class="text-blue-600 font-medium hover:underline">Learn more</a>
+                        <i class="text-blue-600" data-lucide="chevron-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="text-center">
+                        <img src="/src/assets/dailyscore.jpg" alt="Daily readiness score" width="370" height="370" class="rounded-[28px] mb-[32px] object-cover w-[418px] h-[418px] md:h-[369.333px]" />
+                        <div class="flex flex-col w-[402px] md:w-[360px]">
+                        <h3 class="text-[18px] md:text-[20px] font-[700] mb-4">Daily readiness score</h3>
+                        <p class="text-gray-600 text-[16px] spacing mb-[30px]">Optimize your routine with a score that gives personalized workout intensity and recovery recommendations based on your body.</p>
+                        </div>
+                        <div class="flex justify-center text-blue">
+                        <a href="#" class="text-blue-600 font-medium hover:underline">Learn more</a>
+                        <i class="text-blue-600" data-lucide="chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="flex justify-center mt-[24px]">
+            <button
+                class="bg-blue-600 text-white w-[177.483px] h-[40px] rounded-[5px] hover:bg-[#3e80d9] transition-all duration-300"
+                style="box-shadow: 0 1px 3px 1px #00000026, 0px 1px 2px 0px #0000004d;">
+                See more features
+             </button>
+        </div>
+    </section>
+        
+    <!-- Article Section -->
+    <section class="pt-[120px] px-[24px]">
+        <div class="mx-auto">
+            <div class="flex items-center flex-col-reverse md:flex-row lg:mx-[118px] gap-[24px] lg:gap-[140px]">
+                <div class="relative lg:h-[566px] lg:w-[566px] w-[402px] overflow-hidden">
+                    <img src="/src/assets/runner.jpg" alt="Runner with Pixel Watch" class='rounded-[28px] h-[418px] lg:h-[566px] md:w-full w-full object-fit' />
+                </div>
+                <div class="flex flex-col justify-center items-center md:items-stretch text-center md:text-left lg:text-left lg:max-w-[448px]">
+                    <h2 class="text-[24px] md:text-[30px] lg:text-[40px] font-medium mb-4">Cross the finish line with help from the Pixel Watch 3.</h2>
+                    <p class="text-gray-700 text-[16px] spacing mb-6">
+                    Stay motivated, maximize performance, create the perfect run routine, and more.<sup>2</sup>
+                    </p>
+                    <a href="#" class="text-[#1a73e8] inline-flex items-center hover:underline">
+                    Read the article <i data-lucide="chevron-right" class="ml-1 h-4 w-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium -->
+    <section class="mt-[120px] text-[#3C4043] md:mb-[114px] mb-[60px] mx-[24px] bg-[#e4f5fd] h-full rounded-[28px]">
+        <div class="">
+            <div class="flex flex-col md:flex-row px-[24px] md:px-[80px] gap-[19px] relative">
+                <div class="flex items-center md:py-[40px]">
+                    <div class="md:mt-3">
+                    <div class="flex flex-col items-center justify-center text-center md:w-[536px]">
+                        <p class="fitbit mb-4">Fitbit Premium</p>
+                        <h2 class="md:text-[48px] text-[28px] max-w-[536px] line font-[700] mb-2 md:mb-3">
+                        Boost your fitness routine with Fitbit Premium.
+                        </h2>
+                        <p class="text-gray-700 text-[16px] spacing mb-">
+                        Get advanced insights, personalized recommendations, and energizing workouts. Get started with 6
+                        months of Fitbit Premium included with your smartwatch or tracker.<sup class="text-[10px]">3,4</sup>
+                        </p>
+                        <a
+                        href="#"
+                        class="text-[#1a73e8] inline-flex justify-center items-center mt-4 border-2 border-[#3C4043] text-[#3C4043] bg-transparent leading-[40px] hover:bg-[#eff0f0] w-[130.65px] h-[40px] rounded-[5px] transition-colors duration-300"
+                        >
+                        Learn more
+                        </a>
+                    </div>
+                    </div>
+                </div>
+                <div class="">
+                    <img
+                    src="/src/assets/premium.jpg"
+                    alt="Fitbit Premium App"
+                    class="object-contain md:w-[996px] w-full md:left-[65px]"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
           
-          // Refresh Lucide icons after changing them
-          lucide.createIcons();
-      });
-</script>
-<script>
-  // Initialize Lucide icons
-  lucide.createIcons();
-  
-  // Carousel functionality
-  document.addEventListener('DOMContentLoaded', function() {
-      const scrollContainer = document.getElementById('scrollContainer');
-      const cardsContainer = document.getElementById('cardsContainer');
-      const prevButton = document.getElementById('prevButton');
-      const nextButton = document.getElementById('nextButton');
-      const progressBar = document.getElementById('progressBar');
+        
+    <!-- Accessories Section -->
+    <section class="px-4 text-[#3C4043]">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-[24px] md:text-[40px] font-[700] text-center mb-7 md:mb-6">Accessories</h2>
+            <div class="text-center mb-[48px]">
+                <button class="text-blue-600 inline-flex items-center hover:underline">
+                    See more <i data-lucide="chevron-right" class="ml-1 h-4 w-4"></i>
+                </button>
+            </div>
+
+            <!-- Accessories scroll container -->
+            <div class="overflow-x-auto flex md:justify-center scrollbar-hide" style="scrollbar-width: none; -ms-overflow-style: none;">
+                <div class="flex space-x-6 min-w-max">
+                    <!-- Accessory 1 -->
+                    <div class="bg-gray-50 h-[348.967px] md:w-[369.05px] md:h-auto rounded-3xl flex flex-col w-80">
+                    <div class="flex justify-center">
+                        <img src="/src/assets/bands.png" alt="Bands" class="object-contain h-[172.967px] md:h-[295.033px] md:w-[369.05px] w-80 rounded-[28px]" />
+                    </div>
+                    <div class="pt-5 px-10 pb-10">
+                        <h3 class="text-xl font-medium mb-6">Bands</h3>
+                        <button class="bg-blue-600 text-white px-6 py-2 rounded-md w-24 h-10 hover:bg-[#3e80d9] transition-all duration-300">
+                        Browse
+                        </button>
+                    </div>
+                    </div>
+
+                    <!-- Accessory 2 -->
+                    <div class="bg-gray-50 h-[348.967px] md:w-[369.05px] md:h-auto rounded-3xl flex flex-col w-80">
+                    <div class="flex justify-center">
+                        <img src="/src/assets/smallcable.jpg" alt="Cables" class="object-contain h-[172.967px] md:h-[295.033px] md:w-[369.05px] w-80 rounded-[28px]" />
+                    </div>
+                    <div class="pt-5 px-10 pb-10">
+                        <h3 class="text-xl font-medium mb-6">Power, cables, and adapters</h3>
+                        <button class="bg-blue-600 text-white px-6 py-2 rounded-md w-24 h-10 hover:bg-[#3e80d9] transition-all duration-300">
+                        Browse
+                        </button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pixel Portfolio Section -->
+    <section class="px-4 mt-[130px] text-[#3C4043]">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-[24px] md:text-4xl font-[700] text-center mb-7">More from the Pixel portfolio.</h2>
+            <div class="text-center mb-[64px] md:mb-[45px]">
+                <button class="text-blue-600 inline-flex items-center hover:underline">
+                    Browse the Pixel portfolio <i data-lucide="chevron-right" class="ml-1 h-4 w-4"></i>
+                </button>
+            </div>
+
+            <!-- Pixel portfolio scroll container -->
+            <div class="overflow-x-auto flex md:justify-center scrollbar-hide pb-4" style="scrollbar-width: none; -ms-overflow-style: none;">
+                <div class="flex space-x-6 min-w-max">
+                    <!-- Pixel 9 Pro -->
+                    <div class="bg-gray-50 md:w-[369.333px] rounded-3xl w-80">
+                    <div class="flex items-center justify-center md:h-[295.267px] h-[240px]">
+                        <img src="/src/assets/pixel9.png" alt="Pixel 9 Pro" class="object-cover w-80 rounded-[28px] h-[245.833px] h-[295.267px] md-h-full md-w-full" />
+                    </div>
+                    <div class='px-[40px] pb-[40px] pt-[20px] flex flex-col gap-[16px]'>
+                        <div class='flex flex-col gap-[5px]'>
+                        <h3 class="text-[18px] text-xl font-[700]">Pixel 9 Pro</h3>
+                        <p class="text-[14px]">All pro. Pure magic.</p>
+                        </div>
+                        <div class='flex flex-col flex-wrap gap-[8px]'>
+                        <p class="font-medium">From $999</p>
+                        <p class="text-[12px] w-[227.5px] md:w-full space text-gray-600">or $27.75/month with 36-month financing*</p>
+                        </div>
+                        <button class="bg-blue-600 text-white w-[68.9333px] h-[40px] rounded-md inline-block hover:bg-[#3e80d9] transition-all duration-300">
+                        Buy
+                        </button>
+                    </div>
+                    </div>
+
+                    <!-- Pixel Buds Pro 2 -->
+                    <div class="bg-gray-50 md:w-[369.333px] rounded-3xl w-80">
+                    <div class="flex items-center justify-center md:h-[295.267px] h-[240px]">
+                        <img src="/src/assets/pixelbud.png" alt="Pixel Buds Pro 2" class="object-cover w-80 rounded-[28px] h-[245.833px] h-[295.267px] md-h-full! md-w-full!" />
+                    </div>
+                    <div class='px-[40px] pb-[40px] pt-[20px] flex flex-col gap-[16px]'>
+                        <div class='flex flex-col gap-[8px]'>
+                        <h3 class="text-[18px] text-xl font-[700]">Pixel Buds Pro 2</h3>
+                        <p class="text-[14px]">Light ears ahead.</p>
+                        </div>
+                        <div class='flex flex-col flex-wrap gap-[8px]'>
+                        <p class="font-medium">$229</p>
+                        <p class="text-[12px] w-[227.5px] md:w-full space text-gray-600">or $19.08/month with 12-month financing*</p>
+                        </div>
+                        <button class="bg-blue-600 text-white w-[68.9333px] h-[40px] rounded-md inline-block hover:bg-[#3e80d9] transition-all duration-300">
+                        Buy
+                        </button>
+                    </div>
+                    </div>
+
+                    <!-- Pixel Tablet -->
+                    <div class="bg-gray-50 md:w-[369.333px] rounded-3xl w-80">
+                    <div class="flex items-center justify-center md:h-[295.267px] h-[240px]">
+                        <img src="/src/assets/pixeltab.png" alt="Pixel Tablet" class="object-cover w-80 rounded-[28px] h-[245.833px] h-[295.267px] md-h-full md-w-full!" />
+                    </div>
+                    <div class='px-[40px] pb-[40px] pt-[20px] flex flex-col gap-[16px]'>
+                        <div class='flex flex-col gap-[8px]'>
+                        <h3 class="text-[18px] text-xl font-[700]">Pixel Tablet</h3>
+                        <p class="text-[14px]">Help in your hand. And at home.</p>
+                        </div>
+                        <div class='flex flex-col flex-wrap gap-[8px]'>
+                        <p class="font-medium">From $399</p>
+                        <p class="text-[12px] w-[227.5px] md:w-full space text-gray-600">or $33.25/month with 12-month financing*</p>
+                        </div>
+                        <button class="bg-blue-600 text-white w-[68.9333px] h-[40px] rounded-md inline-block hover:bg-[#3e80d9] transition-all duration-300">
+                        Buy
+                        </button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ's -->
+    <div class="max-w-6xl mx-auto mt-[60px] p-6">
+        <h2 class="text-3xl text-center font-bold mb-8 text-gray-800">Frequently asked questions</h2>
+        <div class="grid grid-cols-1 gap-4">
+            <div class="border border-gray-200 rounded">
+                <button class="faq-toggle w-full flex justify-between items-center p-4 text-left text-gray-700 hover:bg-gray-50">
+                    <span class="font-medium">What Pixel models are currently available?</span>
+                    <span class="text-gray-400 text-2xl transition-transform duration-500 icon">+</span>
+                </button>
+                <div class="faq-answer p-4 border-t border-gray-200 text-gray-600 transition-all duration-500 ease-in-out hidden">
+                    Google currently offers models like the Pixel 9, Pixel 9 Pro, and Pixel 9a. Availability may vary by region.
+                </div>
+            </div>
+            <div class="border border-gray-200 rounded">
+                <button class="faq-toggle w-full flex justify-between items-center p-4 text-left text-gray-700 hover:bg-gray-50">
+                    <span class="font-medium">Do Pixel phones work with all carriers?</span>
+                    <span class="text-gray-400 text-2xl transition-transform duration-500 icon">+</span>
+                </button>
+                <div class="faq-answer p-4 border-t border-gray-200 text-gray-600 transition-all duration-500 ease-in-out hidden">
+                    Yes, unlocked Pixel phones are compatible with most major carriers, including Google Fi, Verizon, T-Mobile, and AT&T.
+                </div>
+            </div>
+            <div class="border border-gray-200 rounded">
+                <button class="faq-toggle w-full flex justify-between items-center p-4 text-left text-gray-700 hover:bg-gray-50">
+                    <span class="font-medium">How long do Pixel devices receive updates?</span>
+                    <span class="text-gray-400 text-2xl transition-transform duration-500 icon">+</span>
+                </button>
+                <div class="faq-answer p-4 border-t border-gray-200 text-gray-600 transition-all duration-500 ease-in-out hidden">
+                    Pixel devices generally receive Android OS and security updates for at least 5 years from the date they become available on the Google Store.
+                </div>
+            </div>
+            <div class="border border-gray-200 rounded">
+                <button class="faq-toggle w-full flex justify-between items-center p-4 text-left text-gray-700 hover:bg-gray-50">
+                    <span class="font-medium">Can I trade in my old device for a Pixel?</span>
+                    <span class="text-gray-400 text-2xl transition-transform duration-500 icon">+</span>
+                </button>
+                <div class="faq-answer p-4 border-t border-gray-200 text-gray-600 transition-all duration-500 ease-in-out hidden">
+                    Yes! Google Store offers trade-in options for various phones. The value depends on your device's condition and model.
+                </div>
+            </div>
+            <div class="border border-gray-200 rounded">
+                <button class="faq-toggle w-full flex justify-between items-center p-4 text-left text-gray-700 hover:bg-gray-50">
+                    <span class="font-medium">What are the standout camera features on Pixel phones?</span>
+                    <span class="text-gray-400 text-2xl transition-transform duration-500 icon">+</span>
+                </button>
+                <div class="faq-answer p-4 border-t border-gray-200 text-gray-600 transition-all duration-500 ease-in-out hidden">
+                    Pixel phones are known for exceptional computational photography, including Night Sight for low-light photography, Magic Eraser to remove unwanted objects, and Portrait Mode with adjustable blur.
+                </div>
+            </div>
+            <div class="border border-gray-200 rounded">
+                <button class="faq-toggle w-full flex justify-between items-center p-4 text-left text-gray-700 hover:bg-gray-50">
+                    <span class="font-medium">Does the Pixel have water resistance?</span>
+                    <span class="text-gray-400 text-2xl transition-transform duration-500 icon">+</span>
+                </button>
+                <div class="faq-answer p-4 border-t border-gray-200 text-gray-600 transition-all duration-500 ease-in-out hidden">
+                    Most current Pixel models offer water and dust resistance with IP68 ratings, making them resistant to submersion in up to 1.5 meters of fresh water for up to 30 minutes.
+                </div>
+            </div>
+            <div class="border border-gray-200 rounded">
+                <button class="faq-toggle w-full flex justify-between items-center p-4 text-left text-gray-700 hover:bg-gray-50">
+                    <span class="font-medium">How does Google Assistant work on Pixel devices?</span>
+                    <span class="text-gray-400 text-2xl transition-transform duration-500 icon">+</span>
+                </button>
+                <div class="faq-answer p-4 border-t border-gray-200 text-gray-600 transition-all duration-500 ease-in-out hidden">
+                    Google Assistant on Pixel phones offers exclusive features like Call Screen, Hold for Me, and enhanced voice commands. You can activate it with a voice command or by swiping from the bottom corners.
+                </div>
+            </div>
+            <div class="border border-gray-200 rounded">
+                <button class="faq-toggle w-full flex justify-between items-center p-4 text-left text-gray-700 hover:bg-gray-50">
+                    <span class="font-medium">What storage options are available for Pixel phones?</span>
+                    <span class="text-gray-400 text-2xl transition-transform duration-500 icon">+</span>
+                </button>
+                <div class="faq-answer p-4 border-t border-gray-200 text-gray-600 transition-all duration-500 ease-in-out hidden">
+                    Pixel phones typically come in 128GB, 256GB, and 512GB storage configurations, with some Pro models offering up to 1TB. Pixel phones don't have expandable storage via microSD.
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Enterprise Section -->
+    <section class="mt-[120px] px-[24px] text-[#3C4043]">
+        <div class="mx-auto">
+            <div class="flex flex-col md:flex-row justify-center md:gap-[140px] gap-8">
+                <div class="flex flex-col items-center md:items-stretch md:text-left text-center justify-center md:max-w-[448px]">
+                    <h2 class="text-[24px] md:text-[40px] font-[700] linespace mb-6">
+                        Power your population health programs with Fitbit Enterprise.
+                    </h2>
+                    <a
+                        href="#"
+                        class="text-[#1a73e8] inline-flex justify-center items-center mt-4 border-2 border-[#3C4043] text-[#3C4043] bg-transparent leading-[40px] hover:bg-[#eff0f0] w-[130.65px] h-[40px] rounded-[5px] transition-colors duration-300"
+                    >
+                        Learn more
+                    </a>
+
+                </div>
+                <div class="relative md:h-[566px] md:w-[567px] rounded-3xl overflow-hidden">
+                    <img
+                        src="src/assets/enterprise.jpg"
+                        alt="Business person with Fitbit"
+                        class="rounded-[28px] w-full h-full object-cover"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Buy Section -->
+    <section class="mt-[125px] text-[#3C4043] px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-[700] text-center mb-12 md:mb-[84px]">Why buy on the Google Store.</h2>
+            <div class="overflow-x-auto flex" style="scrollbar-width: none; -ms-overflow-style: none;">
+                <div class="flex gap-[24px] min-w-max">
+                <!-- Card 1 -->
+                    <div class="bg-gray-50 w-[271px] py-[40px] px-[20px] rounded-[28px] flex flex-col items-center text-center">
+                        <div class="mb-6 text-[#1a73e8]">
+                        <img src="src/assets/watch.svg" alt="Business person with Fitbit" class="w-[28px] h-[29px]" />
+                        </div>
+                        <h3 class="text-lg font-medium mb-3">Trade in your old watch and save.</h3>
+                        <a href="#" class="text-[#1a73e8] inline-flex justify-center items-center mt-4 border-2 border-blue-600 text-blue-600 bg-transparent hover:bg-[#e8f0fe] w-[130.65px] h-[40px] rounded-[5px] transition-colors duration-300">Learn more</a>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-gray-50 py-[40px] w-[271px] px-[20px] rounded-[28px] flex flex-col items-center text-center">
+                        <div class="mb-6 text-[#1a73e8]">
+                        <img src="src/assets/care.svg" alt="Business person with Fitbit" />
+                        </div>
+                        <h3 class="text-lg font-medium mb-3">Trade in your old watch and save.</h3>
+                        <a href="#" class="text-[#1a73e8] inline-flex justify-center items-center mt-4 border-2 border-blue-600 text-blue-600 bg-transparent hover:bg-[#e8f0fe] w-[130.65px] h-[40px] rounded-[5px] transition-colors duration-300">Learn more</a>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-gray-50 py-[40px] w-[271px] px-[20px] rounded-[28px] flex flex-col items-center text-center">
+                        <div class="mb-6 text-[#1a73e8]">
+                        <img src="src/assets/finance.svg" alt="Business person with Fitbit" />
+                        </div>
+                        <h3 class="text-lg font-medium mb-3">Trade in your old watch and save.</h3>
+                        <a href="#" class="text-[#1a73e8] inline-flex justify-center items-center mt-4 border-2 border-blue-600 text-blue-600 bg-transparent hover:bg-[#e8f0fe] w-[130.65px] h-[40px] rounded-[5px] transition-colors duration-300">Learn more</a>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="bg-gray-50 py-[40px] w-[271px] px-[20px] rounded-[28px] flex flex-col items-center text-center">
+                        <div class="mb-6 text-[#1a73e8]">
+                        <img src="src/assets/shipping.svg" alt="Business person with Fitbit" />
+                        </div>
+                        <h3 class="text-lg font-medium mb-3">Trade in your old watch and save.</h3>
+                        <a href="#" class="text-[#1a73e8] inline-flex justify-center items-center mt-4 border-2 border-blue-600 text-blue-600 bg-transparent hover:bg-[#e8f0fe] w-[130.65px] h-[40px] rounded-[5px] transition-colors duration-300">Learn more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="w-full px-5 text-[#3C4043] md:max-w-6xl mx-auto mt-[120px] text-[12px] text-gray-700">
+        <div class="flex flex-col space-y-3">
+            <div class="flex flex-row items-start gap-4">
+              <div class="flex-shrink-0">1</div>
+              <div class="flex-grow">
+                Ace Pass data plan required. Works with most phones running Android 11.0 or newer or iOS 15 or newer.
+                Requires Wi-Fi for setup. Setup for users under 13 requires parent and child Google Accounts, and
+                parent's use of Fitbit Ace app on parent's compatible phone. Older users require Google Account and
+                Fitbit Ace app on user's compatible phone. <a class="underline text-blue-600 hover:bg-blue-100" href="">g.co/fitbitace/info</a> 
+                for more information.
+              </div>
+            </div>
+            
+            <div class="flex flex-row items-start gap-4">
+              <div class="flex-shrink-0">2</div>
+              <div class="flex-grow">
+                Works with most phones running on Android 10.0 or newer. Requires Google Account, Google Pixel Watch app, and internet access.
+                Some features require a Fitbit mobile app and/or paid subscription. Google apps and services and Fitbit Premium content and
+                features are subject to change and may not be available in all countries or languages. Google Pixel Watch is not compatible
+                with Android (Go edition). See <a class="underline text-blue-600 hover:bg-blue-100" href="">g.co/pixelwatch/specs </a> for
+                technical and device specifications.
+              </div>
+            </div>
+            
+            <div class="flex flex-row items-start gap-4">
+              <div class="flex-shrink-0">3</div>
+              <div class="flex-grow">
+                Fitbit Premium content and features may change. Content recommendations are not available in all countries and may be in English only.
+              </div>
+            </div>
+            
+            <div class="flex flex-row items-start gap-4">
+              <div class="flex-shrink-0">4</div>
+              <div class="flex-grow">
+                With eligible device purchase. New and returning Fitbit Premium members only. Must activate membership within 60 days of device activation.
+                Valid form of payment required. After the 6-month period, subscription will renew at $9.99 monthly or $79.99 annually (based on your
+                registration). Cancel anytime. Membership cannot be gifted. Content and features may change. See <a class="underline text-blue-600 hover:bg-blue-100" href="">g.co/fitbitpremium/help</a>
+                for more details. Full terms: <a class="underline text-blue-600 hover:bg-blue-100" href="">g.co/pixelwatch/fitbitpremium-tos</a>.
+              </div>
+            </div>
+            
+            <div class="flex flex-row items-start gap-4">
+              <div class="flex-shrink-0">Δ</div>
+              <div class="flex-grow">
+                Trade-in values vary based on condition, year, and configuration of your eligible device, and are subject to change upon inspection. Watch
+                trade-in credit will be issued as a refund back on the specific form of payment used for the watch purchase at Google Store or in the form
+                of Store Credit if the purchased watch has already been returned. Refund is based on (and paid after) watch received matching the description
+                provided at time of estimate. Watches sent for trade-in must be received within 30 days of initiation of trade-in process, provided the
+                purchased device has not been returned during that time. Additional trade-in terms are located here:
+                 <a class="underline text-blue-600 hover:bg-blue-100" href="">store.google.com/intl/en-US_us/about/device-trade-in.html</a>
+              </div>
+            </div>
+            
+            <div class="flex flex-row items-start gap-4">
+              <div class="flex-shrink-0">†</div>
+              <div class="flex-grow">
+                All orders that ship free use the lowest-cost option unless otherwise noted. All free returns must be initiated within 15 days of receipt of order
+                by following the instructions found <a class="underline text-blue-600 hover:bg-blue-100" href="">here</a>.
+              </div>
+            </div>
+            
+            <div class="flex flex-row items-start gap-4">
+              <div class="flex-shrink-0">^</div>
+              <div class="flex-grow">
+                Fitbit Ace Pass is a paid data plan that is required to access most features. Valid form of payment and Google Account required. Ace Pass renews
+                until you cancel. Cancel anytime. No refunds for partial billing periods. See <a class="underline text-blue-600 hover:bg-blue-100" href="">g.co/fitbitace/info</a>
+                for more information.
+              </div>
+            </div>
+            
+            <div class="flex flex-row items-start gap-4">
+              <div class="flex-shrink-0">§§</div>
+              <div class="flex-grow">
+                Get 2 years of data for your smartwatch on us when you buy any Pixel Watch 3 (4G LTE). Data from Google Fi Wireless to power your messaging, navigation, and music
+                on the go. One Google Fi Wireless data offer per purchase of Pixel Watch 3 41mm with 4G LTE or Pixel Watch 3 45mm with 4G LTE. Texting at no extra cost, but requires
+                an active wireless phone plan. Voice calling over LTE is not supported. Offer is valid while posted on store.google.com. To redeem the offer, follow instructions
+                in the email from Google Fi Wireless sent after purchase of the watch, and activate data offer within 60 days of shipping (if ordered on store.google.com) or 60
+                days of purchase (in physical Google Store locations) to receive a full 2 years of service. Activation of offer requires acceptance of the 
+                <a class="underline text-blue-600 hover:bg-blue-100" href="">Google Fi Wireless Terms of Service</a>. US residents with US shipping addresses only. Must be 18 years
+                or older. A Google Fi Wireless phone plan is not required. Offer cannot be used with another device, and return of the watch terminates data service. The offer cannot
+                be combined with an existing carrier service plan on the watch or with use of Safety Signal. Data offer is non-renewable at the end of 2-year period. Purchase must
+                be made on Google Store US. Not valid for cash or cash equivalent. Void where prohibited.
+              </div>
+            </div>
+            
+            <div class="flex flex-row items-start gap-4">
+              <div class="flex-shrink-0 invisible">•</div>
+              <div class="flex-grow">
+                To use data and texting, you must set up and pair your watch with a compatible phone, and your phone must have an existing phone number and texting provider. Texting
+                also requires the Messages by Google app. 4G data speed is included with the offer up to 500 MB per month, after which usage, data will slow to 256 kbps. Data will be
+                capped at 1 GB per month. Data is available in the US only. Some features, like location sharing and music streaming, may require you to install supporting applications
+                (such as Google Maps and YouTube Music) on your watch and paired phone.
+              </div>
+            </div>
+            
+            <div class="flex flex-row items-start gap-4">
+              <div class="flex-shrink-0">‡</div>
+              <div class="flex-grow">
+                Save up to $30 on select Fitbit smartwatches and trackers. Starts August 11, 2024 at 12:00 am PT and ends August 25, 2024 at 11:59pm PT, while supplies last and subject
+                to availability. US residents only. Must be 18 years or older. Unless otherwise stated, offer cannot be combined with other offers and is not transferable. Purchase
+                must be made on Google Store US. Not valid for cash or cash equivalent. Void where prohibited.
+              </div>
+            </div>
+          </div>
+    </section>
+
+    <footer class="pt-[60px] px-[24px] text-[#3C4043]">
+    <div class="container mx-auto max-w-6xl  py-12">
+        <div class="pb-[60px]">
+            <svg viewBox="0 0 867 155" preserveAspectRatio="xMinYMin meet" height="32" width="179" class="EZmB3d "><g class=""><g fill="#5F6368"><path d="M865.7 108c-2.4 4.3-5.8 8-9.9 10.7-4.3 2.9-9.5 4.3-15.8 4.3-3.9 0-7.8-.7-11.4-2.2-3.4-1.4-6.5-3.5-9.1-6.1-2.6-2.7-4.6-5.8-6-9.3-2.8-7.4-2.9-15.6-.1-23.1 1.3-3.4 3.2-6.6 5.7-9.3 2.5-2.7 5.5-4.9 8.8-6.4 3.6-1.6 7.5-2.4 11.5-2.4 3.9-.1 7.8.7 11.4 2.1 3.2 1.4 6.1 3.4 8.5 6 2.4 2.7 4.2 5.8 5.3 9.2 1.3 3.8 1.9 7.8 1.7 11.8 0 1-.1 2-.2 2.9h-42.3c.2 2.4.8 4.7 1.9 6.9 1 1.8 2.3 3.5 3.9 4.8 1.5 1.3 3.3 2.2 5.1 2.8 1.8.6 3.6.9 5.5.9 3.2.1 6.3-.8 8.9-2.6 2.3-1.7 4.3-3.9 5.7-6.4l10.9 5.4zm-11.6-21.3c-.2-1.3-.6-2.6-1.1-3.8-.6-1.4-1.5-2.7-2.6-3.8-1.3-1.3-2.8-2.3-4.5-3-2.1-.9-4.4-1.3-6.7-1.2-3.4-.1-6.7 1.1-9.3 3.2-2.6 2.2-4.5 5.2-5.2 8.6h29.4zM670.7 76.9h-9.6V66h9.6V49.3H683V66h13.4v10.9H683v24.9c0 1.3.1 2.5.4 3.8.2 1 .7 2 1.3 2.9 1.2 1.4 2.9 2.2 4.8 2.2.9 0 1.9-.1 2.8-.3.7-.2 1.4-.5 2.1-.8l3.8 10.9c-1.6.6-3.2 1.1-4.9 1.4-1.9.4-3.8.5-5.8.5-2.4 0-4.7-.4-6.9-1.2-1.9-.8-3.7-1.9-5.2-3.4-3.2-3.2-4.8-7.7-4.8-13.3l.1-27.6zM732.1 64.2c3.9 0 7.8.7 11.4 2.2 3.4 1.4 6.4 3.4 9 6.1 2.6 2.7 4.6 5.8 5.9 9.2 2.8 7.4 2.8 15.7 0 23.1-1.3 3.4-3.3 6.6-5.9 9.2-2.6 2.6-5.6 4.7-9 6.1-7.4 2.9-15.5 2.9-22.9 0-3.4-1.4-6.4-3.4-9-6.1-2.6-2.7-4.6-5.8-5.9-9.2-2.8-7.4-2.8-15.7 0-23.1 1.3-3.4 3.3-6.6 5.9-9.2 2.6-2.6 5.6-4.7 9-6.1 3.7-1.5 7.6-2.2 11.5-2.2zm0 46.6c2.1 0 4.1-.4 6-1.2 1.9-.8 3.7-2 5.2-3.4 1.6-1.6 2.8-3.4 3.6-5.5 1.8-4.8 1.8-10 0-14.8-.8-2.1-2-3.9-3.6-5.5-1.5-1.5-3.2-2.6-5.2-3.4a15.6 15.6 0 00-12 0c-1.9.8-3.7 2-5.2 3.4-1.6 1.6-2.8 3.4-3.6 5.5-1.8 4.8-1.8 10 0 14.8.8 2.1 2 3.9 3.6 5.5 1.5 1.5 3.2 2.6 5.2 3.4 1.9.7 3.9 1.2 6 1.2zM771.7 66h11.8v8.3h.7c.7-1.5 1.6-2.8 2.8-4 1.2-1.2 2.5-2.3 3.9-3.2 1.5-.9 3-1.6 4.6-2.1 1.5-.5 3.1-.8 4.7-.8s3.1.1 4.6.5c1.3.4 2.5.9 3.7 1.5l-4.1 11.1c-.8-.3-1.6-.5-2.4-.7-1.2-.2-2.4-.3-3.7-.3-1.9 0-3.8.4-5.6 1.2-1.7.8-3.2 2-4.4 3.4-1.3 1.5-2.3 3.2-3 5.1-.7 2-1.1 4.1-1.1 6.2v28.2h-12.5V66zM609.5 116.2c2.7 2 5.8 3.5 9 4.5 6.5 2 13.5 2 20.1.1 3.4-.9 6.5-2.5 9.3-4.5 2.8-2.1 5.1-4.8 6.8-7.8 1.9-3.5 2.8-7.4 2.7-11.4.1-3.3-.5-6.6-1.7-9.7-1.1-2.7-2.8-5.2-4.8-7.3-2.1-2.2-4.6-4-7.3-5.4-3-1.6-6.1-2.9-9.3-4l-5.5-2c-4.1-1.3-7.9-3.1-11.4-5.5-2.6-1.8-4.1-4.8-4.1-8 0-1.6.4-3.2 1.2-4.5.8-1.4 1.9-2.6 3.1-3.6 1.4-1.1 3-1.9 4.6-2.3 1.8-.6 3.7-.8 5.7-.8s4.1.3 6 1c1.6.6 3.1 1.5 4.5 2.5 1.2 1 2.3 2.2 3.1 3.5.6 1 1.2 2.1 1.6 3.2l11.4-4.8c-.7-1.9-1.7-3.7-2.7-5.4-1.4-2.2-3.1-4.1-5.2-5.8-2.4-1.9-5.1-3.4-7.9-4.4-3.5-1.2-7.2-1.8-11-1.7-3.7 0-7.4.6-10.9 1.9-3.1 1.1-6 2.9-8.5 5.1-2.3 2.1-4.2 4.6-5.5 7.4-1.3 2.8-2 5.9-2 9-.1 3.1.6 6.1 1.8 8.9 1.2 2.5 2.8 4.7 4.8 6.6 2 1.9 4.2 3.5 6.6 4.8 2.3 1.3 4.7 2.3 7.2 3.2l5.5 2c2.8 1 5.5 2.1 8.2 3.4 2 .9 3.9 2.1 5.6 3.6 1.4 1.2 2.4 2.6 3.2 4.2.7 1.6 1 3.4 1 5.1 0 2-.4 3.9-1.4 5.6-.9 1.6-2.1 3-3.5 4.1-1.5 1.1-3.2 2-5.1 2.5-2 .5-4 .8-6 .8-2.4 0-4.7-.4-6.9-1.3-2-.9-3.9-2.1-5.5-3.6-1.7-1.5-3.1-3.3-4.1-5.3-1-1.9-1.8-3.8-2.4-5.9L597.6 99c1 3.5 2.6 6.8 4.6 9.8 2 2.9 4.5 5.4 7.3 7.4z"></path></g><g fill="#5F6368"><path d="M242.7 122.2c-24.8 0-45.7-20.2-45.7-45s20.9-45 45.7-45c11.5-.2 22.6 4.3 30.8 12.4l-8.7 8.7c-5.9-5.7-13.9-8.9-22.2-8.8-18.1 0-32.3 14.6-32.3 32.7s14.2 32.7 32.3 32.7c11.7 0 18.4-4.7 22.7-9 3.5-3.5 5.8-8.6 6.7-15.5h-29.4V73.2H284c.5 2.5.7 5.1.7 7.7 0 9.2-2.5 20.6-10.6 28.8-7.9 8.1-18 12.5-31.4 12.5zM350.2 93.2c.1 15.9-12.8 28.9-28.7 29-15.9.1-28.9-12.8-29-28.7v-.3c-.1-15.9 12.8-28.9 28.7-29 15.9-.1 28.9 12.8 29 28.7v.3zm-12.6 0c0-10.4-7.5-17.6-16.2-17.6s-16.2 7.1-16.2 17.6c0 10.3 7.5 17.6 16.2 17.6s16.2-7.2 16.2-17.6zM414.2 93.2c.1 15.9-12.8 28.9-28.7 29-15.9.1-28.9-12.8-29-28.7v-.3c-.1-15.9 12.8-28.9 28.7-29 15.9-.1 28.9 12.8 29 28.7v.3zm-12.6 0c0-10.4-7.5-17.6-16.2-17.6s-16.2 7.1-16.2 17.6c0 10.3 7.5 17.6 16.2 17.6s16.2-7.2 16.2-17.6zM476.9 66v52c0 21.4-12.6 30.2-27.6 30.2-11.2.1-21.4-6.7-25.7-17.1l11.1-4.6c2 4.7 6.8 10.3 14.6 10.3 9.6 0 15.5-5.9 15.5-17v-4.2h-.4c-2.9 3.5-8.3 6.6-15.3 6.6-14.5 0-27.8-12.6-27.8-28.9 0-16.4 13.3-29.1 27.8-29.1 6.9 0 12.4 3.1 15.3 6.5h.4V66h12.1zm-11.2 27.3c0-10.2-6.8-17.7-15.5-17.7-8.8 0-16.1 7.5-16.1 17.7 0 10.1 7.4 17.4 16.1 17.4 8.7.1 15.5-7.3 15.5-17.4zM502.5 35.3v85.2h-12.7V35.3h12.7zM556.7 102.8l9.9 6.6c-5.4 8.1-14.5 12.9-24.1 12.8-16.5 0-28.8-12.7-28.8-29 0-17.2 12.4-29 27.3-29 15 0 22.4 12 24.8 18.4l1.3 3.3-38.7 16c3 5.8 7.6 8.8 14 8.8s11-3.1 14.3-7.9zm-30.4-10.4l25.9-10.8c-1.4-3.6-5.7-6.1-10.8-6.1-6.5 0-15.5 5.7-15.1 16.9z"></path></g><path d="M154.5 79c.1-5.3-.5-10.6-1.7-15.8h-74v28.6h43.4c-.9 7.2-5.6 17.8-16.1 25v18.9H131c14.8-13.4 23.5-33.2 23.5-56.7z" fill="#4285F4"></path><path d="M78.8 154.5c21.3 0 39.1-6.9 52.2-18.7l-24.9-18.9c-6.6 4.6-15.6 7.8-27.3 7.8-20.3 0-38.3-12.9-44.9-32.1H8.4V112c13.7 26.1 40.8 42.6 70.4 42.5z" fill="#34A853"></path><path d="M33.9 92.5c-3.4-9.9-3.4-20.6 0-30.5V42.6H8.4a75.07 75.07 0 000 69.3l25.5-19.4z" fill="#FBBC04"></path><path d="M78.8 29.9c14.8 0 24.7 6.3 30.4 11.5l22.3-21.2C117.9 7.7 100.1 0 78.8 0 49.2-.1 22.1 16.3 8.4 42.6L33.9 62c6.6-19.2 24.6-32.1 44.9-32.1z" fill="#EA4335"></path></g></svg>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- About Column -->
+            <div>
+                <h3 class="font-[700] text-[16px] mb-4">About</h3>
+                <ul class="space-y-3 font-[400] text-[14px]">
+                <li><a href="#" class="text-gray-600 hover:text-gray-900">Locations</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-gray-900">Ideas & Info</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-gray-900">Pixel for Business</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-gray-900">Official Merch</a></li>
+                </ul>
+            </div>
+    
+            <!-- Orders Column -->
+            <div>
+                <h3 class="font-[700] text-[16px] mb-4">Orders</h3>
+                <ul class="space-y-3 font-[400] text-[14px]">
+                <li><a href="#" class="text-gray-600 hover:text-gray-900">Tracking an order</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-gray-900">Shipping options</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-gray-900">Country availability</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-gray-900">Trade-in</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-gray-900">Financing</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-gray-900">Gift returns</a></li>
+                </ul>
+            </div>
+    
+            <!-- Support Column -->
+            <div>
+                <h3 class="font-[700] text-[16px] mb-4">Support</h3>
+                <ul class="space-y-3 font-[400] text-[14px]">
+                <li><a href="#" class="text-gray-600 hover:text-gray-900">Get help</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-gray-900">Repairs</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-gray-900">Installations</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-gray-900">Disability Support</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-gray-900">Contact us</a></li>
+                </ul>
+            </div>
+    
+            <!-- Sustainability Column -->
+            <div>
+                <h3 class="font-[700] text-[16px] mb-4">Sustainability</h3>
+                <ul class="space-y-3 font-[400] text-[14px]">
+                <li><a href="#" class="text-gray-600 hover:text-gray-900">Sustainability</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-gray-900">Device recycling</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-gray-900">Refurbished devices</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Secondary Footer -->
+    <div class="border-t border-gray-200 py-6">
+        <div class="container mx-auto px-4">
+          <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div class="flex flex-wrap text-[11px] items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <div>
+                        <svg version="1.1" class="w-full h-[23px]" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path style="fill:#F5F5F5;" d="M473.655,88.276H38.345C17.167,88.276,0,105.443,0,126.621V385.38 c0,21.177,17.167,38.345,38.345,38.345h435.31c21.177,0,38.345-17.167,38.345-38.345V126.621 C512,105.443,494.833,88.276,473.655,88.276z"></path> <g> <path style="fill:#FF4B55;" d="M2.109,114.08H509.89c-5.196-15.017-19.452-25.804-36.235-25.804H38.345 C21.561,88.276,7.306,99.063,2.109,114.08z"></path> <rect y="191.49" style="fill:#FF4B55;" width="512" height="25.803"></rect> <rect y="139.88" style="fill:#FF4B55;" width="512" height="25.803"></rect> <path style="fill:#FF4B55;" d="M0,260.074c0,4.875,3.953,8.828,8.828,8.828H512v-25.804H0V260.074z"></path> <rect y="346.32" style="fill:#FF4B55;" width="512" height="25.804"></rect> <path style="fill:#FF4B55;" d="M509.891,397.92H2.109c5.197,15.017,19.453,25.804,36.236,25.804h435.31 C490.439,423.724,504.694,412.937,509.891,397.92z"></path> <rect y="294.71" style="fill:#FF4B55;" width="512" height="25.803"></rect> </g> <path style="fill:#41479B;" d="M8.828,268.902h220.69c4.875,0,8.828-3.953,8.828-8.828V97.103c0-4.876-3.953-8.828-8.828-8.828 H38.345C17.167,88.276,0,105.443,0,126.621v133.453C0,264.95,3.953,268.902,8.828,268.902z"></path> <g> <path style="fill:#F5F5F5;" d="M24.789,108.537l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.027,0.488,1.502l-4.969,3.669 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928L24,122.841l-5.025,3.592c-0.651,0.466-1.518-0.166-1.278-0.928l1.864-5.889 l-4.969-3.669c-0.643-0.476-0.312-1.496,0.488-1.502l6.177-0.047l1.954-5.86C23.463,107.778,24.535,107.778,24.789,108.537z"></path> <path style="fill:#F5F5F5;" d="M24.789,139.191l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928L24,153.496l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C23.463,138.433,24.535,138.433,24.789,139.191z"></path> <path style="fill:#F5F5F5;" d="M24.789,169.846l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928L24,184.151l-5.025,3.592c-0.651,0.465-1.518-0.165-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C23.463,169.087,24.535,169.087,24.789,169.846z"></path> <path style="fill:#F5F5F5;" d="M24.789,200.5l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.027,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928L24,214.805l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.474-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C23.463,199.741,24.535,199.741,24.789,200.5z"></path> <path style="fill:#F5F5F5;" d="M24.789,231.154l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928L24,245.459l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C23.463,230.396,24.535,230.396,24.789,231.154z"></path> <path style="fill:#F5F5F5;" d="M48.582,123.566l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.027,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C47.256,122.808,48.329,122.808,48.582,123.566z"></path> <path style="fill:#F5F5F5;" d="M48.582,154.221l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.027,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.165-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.474-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C47.256,153.462,48.329,153.462,48.582,154.221z"></path> <path style="fill:#F5F5F5;" d="M48.582,184.875l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C47.256,184.116,48.329,184.116,48.582,184.875z"></path> <path style="fill:#F5F5F5;" d="M48.582,215.529l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.466-1.518-0.166-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C47.256,214.771,48.329,214.771,48.582,215.529z"></path> <path style="fill:#F5F5F5;" d="M72.375,108.537l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.027,0.488,1.502l-4.969,3.669 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.466-1.518-0.166-1.278-0.928l1.864-5.889 l-4.969-3.669c-0.643-0.476-0.312-1.496,0.488-1.502l6.177-0.047l1.954-5.86C71.049,107.778,72.122,107.778,72.375,108.537z"></path> <path style="fill:#F5F5F5;" d="M72.375,139.191l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C71.049,138.433,72.122,138.433,72.375,139.191z"></path> <path style="fill:#F5F5F5;" d="M72.375,169.846l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.165-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C71.049,169.087,72.122,169.087,72.375,169.846z"></path> <path style="fill:#F5F5F5;" d="M72.375,200.5l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.027,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.474-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C71.049,199.741,72.122,199.741,72.375,200.5z"></path> <path style="fill:#F5F5F5;" d="M72.375,231.154l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C71.049,230.396,72.122,230.396,72.375,231.154z"></path> <path style="fill:#F5F5F5;" d="M96.169,123.566l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.027,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C94.842,122.808,95.916,122.808,96.169,123.566z"></path> <path style="fill:#F5F5F5;" d="M96.169,154.221l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.027,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.165-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.474-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C94.842,153.462,95.916,153.462,96.169,154.221z"></path> <path style="fill:#F5F5F5;" d="M96.169,184.875l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C94.842,184.116,95.916,184.116,96.169,184.875z"></path> <path style="fill:#F5F5F5;" d="M96.169,215.529l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.466-1.518-0.166-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C94.842,214.771,95.916,214.771,96.169,215.529z"></path> <path style="fill:#F5F5F5;" d="M119.962,108.537l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.027,0.488,1.502l-4.969,3.669 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.026-3.591l-5.025,3.592c-0.651,0.466-1.518-0.166-1.278-0.928l1.864-5.889 l-4.969-3.669c-0.643-0.476-0.312-1.496,0.488-1.502l6.177-0.047l1.954-5.86C118.636,107.778,119.709,107.778,119.962,108.537z"></path> <path style="fill:#F5F5F5;" d="M119.962,139.191l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.026-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889 l-4.969-3.67c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C118.636,138.433,119.709,138.433,119.962,139.191z"></path> <path style="fill:#F5F5F5;" d="M119.962,169.846l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.026-3.593l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889 l-4.969-3.67c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C118.636,169.087,119.709,169.087,119.962,169.846z"></path> <path style="fill:#F5F5F5;" d="M119.962,200.5l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.027,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928l-5.026-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.474-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C118.636,199.741,119.709,199.741,119.962,200.5z"></path> <path style="fill:#F5F5F5;" d="M119.962,231.154l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.026-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889 l-4.969-3.67c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C118.636,230.396,119.709,230.396,119.962,231.154z"></path> <path style="fill:#F5F5F5;" d="M143.755,123.566l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.027,0.488,1.502l-4.969,3.67 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889 l-4.969-3.67c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C142.43,122.808,143.502,122.808,143.755,123.566z"></path> <path style="fill:#F5F5F5;" d="M143.755,154.221l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.027,0.488,1.502l-4.969,3.67 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.165-1.278-0.928l1.864-5.889 l-4.969-3.67c-0.643-0.474-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C142.43,153.462,143.502,153.462,143.755,154.221z"></path> <path style="fill:#F5F5F5;" d="M143.755,184.875l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889 l-4.969-3.67c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C142.43,184.116,143.502,184.116,143.755,184.875z"></path> <path style="fill:#F5F5F5;" d="M143.755,215.529l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.466-1.518-0.166-1.278-0.928l1.864-5.889 l-4.969-3.67c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C142.43,214.771,143.502,214.771,143.755,215.529z"></path> <path style="fill:#F5F5F5;" d="M167.549,108.537l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.027,0.488,1.502l-4.969,3.669 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.466-1.518-0.166-1.278-0.928l1.864-5.889 l-4.969-3.669c-0.643-0.476-0.312-1.496,0.488-1.502l6.177-0.047l1.954-5.86C166.222,107.778,167.296,107.778,167.549,108.537z"></path> <path style="fill:#F5F5F5;" d="M167.549,139.191l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889 l-4.969-3.67c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C166.222,138.433,167.296,138.433,167.549,139.191z"></path> <path style="fill:#F5F5F5;" d="M167.549,169.846l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.165-1.278-0.928l1.864-5.889 l-4.969-3.67c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C166.222,169.087,167.296,169.087,167.549,169.846z"></path> <path style="fill:#F5F5F5;" d="M167.549,200.5l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.027,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.474-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C166.222,199.741,167.296,199.741,167.549,200.5z"></path> <path style="fill:#F5F5F5;" d="M167.549,231.154l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889 l-4.969-3.67c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C166.222,230.396,167.296,230.396,167.549,231.154z"></path> <path style="fill:#F5F5F5;" d="M191.342,123.566l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.027,0.488,1.502l-4.969,3.67 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889 l-4.969-3.67c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C190.016,122.808,191.089,122.808,191.342,123.566z"></path> <path style="fill:#F5F5F5;" d="M191.342,154.221l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.027,0.488,1.502l-4.969,3.67 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.165-1.278-0.928l1.864-5.889 l-4.969-3.67c-0.643-0.474-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C190.016,153.462,191.089,153.462,191.342,154.221z"></path> <path style="fill:#F5F5F5;" d="M191.342,184.875l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889 l-4.969-3.67c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C190.016,184.116,191.089,184.116,191.342,184.875z"></path> <path style="fill:#F5F5F5;" d="M191.342,215.529l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.466-1.518-0.166-1.278-0.928l1.864-5.889 l-4.969-3.67c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C190.016,214.771,191.089,214.771,191.342,215.529z"></path> <path style="fill:#F5F5F5;" d="M215.136,108.537l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.027,0.488,1.502l-4.969,3.669 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.466-1.518-0.166-1.278-0.928l1.864-5.889 l-4.969-3.669c-0.643-0.476-0.312-1.496,0.488-1.502l6.177-0.047l1.954-5.86C213.81,107.778,214.882,107.778,215.136,108.537z"></path> <path style="fill:#F5F5F5;" d="M215.136,139.191l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889 l-4.969-3.67c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C213.81,138.433,214.882,138.433,215.136,139.191z"></path> <path style="fill:#F5F5F5;" d="M215.136,169.846l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.165-1.278-0.928l1.864-5.889 l-4.969-3.67c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C213.81,169.087,214.882,169.087,215.136,169.846z"></path> <path style="fill:#F5F5F5;" d="M215.136,200.5l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.027,0.488,1.502l-4.969,3.67l1.864,5.889 c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889l-4.969-3.67 c-0.643-0.474-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C213.81,199.741,214.882,199.741,215.136,200.5z"></path> <path style="fill:#F5F5F5;" d="M215.136,231.154l1.954,5.86l6.177,0.047c0.8,0.007,1.131,1.026,0.488,1.502l-4.969,3.67 l1.864,5.889c0.242,0.762-0.627,1.394-1.278,0.928l-5.025-3.592l-5.025,3.592c-0.651,0.465-1.518-0.166-1.278-0.928l1.864-5.889 l-4.969-3.67c-0.643-0.476-0.312-1.495,0.488-1.502l6.177-0.047l1.954-5.86C213.81,230.396,214.882,230.396,215.136,231.154z"></path> </g> </g></svg>
+                    </div>
+                    <span>United States</span>
+                </div>
+                <a href="#" class="hover:text-gray-900">
+                    Privacy
+                </a>
+                <a href="#" class="hover:text-gray-900">
+                    Google Nest Commitment to Privacy
+                </a>
+                <a href="#" class="hover:text-gray-900">
+                    Sales Terms
+                </a>
+                <a href="#" class="hover:text-gray-900">
+                    Terms of Service
+                </a>
+                <a href="#" class="hover:text-gray-900">
+                    Careers
+                </a>
+            </div>
+            <div class="flex items-center relative bottom-[10px]">
+                <svg class="w-full h-[40px]" viewBox="0 0 300 60">
+                    <!-- X (Twitter) -->
+                    <g transform="translate(20, 30)">
+                      <path d="M23.643 4.937c-.835.37-1.732.62-2.675.733a4.67 4.67 0 002.048-2.578 9.3 9.3 0 01-2.958 1.13 4.66 4.66 0 00-7.938 4.25 13.229 13.229 0 01-9.602-4.868c-.4.69-.63 1.49-.63 2.342A4.66 4.66 0 003.96 9.824a4.647 4.647 0 01-2.11-.583v.06a4.66 4.66 0 003.737 4.568 4.692 4.692 0 01-2.104.08 4.661 4.661 0 004.352 3.234 9.348 9.348 0 01-5.786 1.995 9.5 9.5 0 01-1.112-.065 13.175 13.175 0 007.14 2.093c8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602a9.47 9.47 0 002.323-2.41z" fill="#333333"/>
+                    </g>
+                    
+                    <!-- Instagram -->
+                    <g transform="translate(80, 30)">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" fill="#333333"/>
+                    </g>
+                    
+                    <!-- Facebook -->
+                    <g transform="translate(140, 30)">
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#333333"/>
+                    </g>
+                    
+                    <!-- YouTube -->
+                    <g transform="translate(200, 30)">
+                      <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#333333"/>
+                    </g>
+                    
+                    <!-- TikTok -->
+                    <g transform="translate(260, 30)">
+                      <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" fill="#333333"/>
+                    </g>
+                </svg>
+            </div>
+          </div>
+        </div>
+    </div>
+    </footer>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function () {
+        // Initialize Lucide icons
+        lucide.createIcons();
       
-      // Fixed card width and spacing
-      const cardWidth = 1148;
-      const mobileCardWidth = 280;
-      const cardSpacing = 24;
-      const animationDuration = 400;
-      const totalCards = 5;
+        // Scroll Effect for Header
+        const bannerHeight = document.querySelector('.banner')?.offsetHeight || 0;
+        const navContainer = document.getElementById('navContainer');
+        const navSpacer = document.getElementById('navSpacer');
       
-      let currentIndex = 0;
-      let isDragging = false;
-      let isMobile = window.innerWidth < 768;
-      let scrollTimeout = null;
+        window.addEventListener('scroll', function () {
+        if (window.scrollY > bannerHeight) {
+            navContainer.classList.add('fixed', 'top-0', 'left-0', 'shadow-md');
+            navSpacer.classList.remove('hidden');
+        } else {
+            navContainer.classList.remove('fixed', 'top-0', 'left-0', 'shadow-md');
+            navSpacer.classList.add('hidden');
+        }
+        });
       
-      // Check for mobile view
-      function checkMobile() {
-          isMobile = window.innerWidth < 768;
-          scrollToIndex(currentIndex);
-      }
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        let menuOpen = false;
       
-      window.addEventListener('resize', checkMobile);
+        if (menuToggle) {
+            menuToggle.addEventListener('click', function () {
+            menuOpen = !menuOpen;
+    
+            if (menuOpen) {
+            mobileMenu.classList.remove('hidden');
+            menuToggle.innerHTML = '<i data-lucide="x" class="w-6 h-6"></i>';
+            } else {
+            mobileMenu.classList.add('hidden');
+            menuToggle.innerHTML = '<i data-lucide="menu" class="w-6 h-6"></i>';
+            }
+    
+            lucide.createIcons(); 
+        });
+        }
+    
+        // Carousel Functionality 
+        const scrollContainer = document.getElementById('scrollContainer');
+        const cardsContainer = document.getElementById('cardsContainer');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        const progressBar = document.getElementById('progressBar');
+    
+        const cardWidth = 1148;
+        const mobileCardWidth = 280;
+        const cardSpacing = 24;
+        const totalCards = 5;
+    
+        let currentIndex = 0;
+        let isDragging = false;
+        let isMobile = window.innerWidth < 768;
+        let scrollTimeout = null;
+    
+        function checkMobile() {
+            isMobile = window.innerWidth < 768;
+            scrollToIndex(currentIndex);
+        }
+    
+        window.addEventListener('resize', checkMobile);
       
-      // Scroll to specific index
-      function scrollToIndex(index) {
-          const activeCardWidth = isMobile ? mobileCardWidth : cardWidth;
-          const scrollAmount = index * (activeCardWidth + cardSpacing);
-          
-          scrollContainer.scrollTo({
-              left: scrollAmount,
-              behavior: 'smooth'
-          });
-          
-          updateButtons(index);
-          updateProgressBar(index);
-      }
+        function scrollToIndex(index) {
+            const activeCardWidth = isMobile ? mobileCardWidth : cardWidth;
+            const scrollAmount = index * (activeCardWidth + cardSpacing);
+    
+        scrollContainer.scrollTo({
+            left: scrollAmount,
+            behavior: 'smooth',
+        });
+    
+        updateButtons(index);
+        updateProgressBar(index);
+        }
       
-      // Update navigation buttons visibility
-      function updateButtons(index) {
-          prevButton.classList.toggle('hidden', index === 0);
-          nextButton.classList.toggle('hidden', index >= totalCards - 1);
-      }
+        function updateButtons(index) {
+            prevButton?.classList.toggle('hidden', index === 0);
+            nextButton?.classList.toggle('hidden', index >= totalCards - 1);
+        }
       
-      // Update progress bar position
-      function updateProgressBar(index) {
-          progressBar.style.transform = `translateX(${index * 100}%)`;
-      }
+        function updateProgressBar(index) {
+            progressBar.style.transform = `translateX(${index * 100}%)`;
+        }
       
-      // Handle scroll events to detect current card
-      function handleScroll() {
-          if (isDragging) return;
-          
-          clearTimeout(scrollTimeout);
-          
-          scrollTimeout = setTimeout(() => {
-              const scrollPosition = scrollContainer.scrollLeft;
-              const activeCardWidth = isMobile ? mobileCardWidth : cardWidth;
-              const cardWidthWithSpacing = activeCardWidth + cardSpacing;
-              
-              const rawIndex = scrollPosition / cardWidthWithSpacing;
-              const newIndex = Math.round(rawIndex);
-              
-              if (newIndex !== currentIndex && newIndex >= 0 && newIndex < totalCards) {
-                  currentIndex = newIndex;
-                  updateButtons(currentIndex);
-                  updateProgressBar(currentIndex);
-              }
-          }, 50);
-      }
+        function handleScroll() {
+            if (isDragging) return;
+            clearTimeout(scrollTimeout);
+    
+            scrollTimeout = setTimeout(() => {
+                const scrollPosition = scrollContainer.scrollLeft;
+                const activeCardWidth = isMobile ? mobileCardWidth : cardWidth;
+                const cardWidthWithSpacing = activeCardWidth + cardSpacing;
+        
+                const rawIndex = scrollPosition / cardWidthWithSpacing;
+                const newIndex = Math.round(rawIndex);
+    
+                if (newIndex !== currentIndex && newIndex >= 0 && newIndex < totalCards) {
+                    currentIndex = newIndex;
+                    updateButtons(currentIndex);
+                    updateProgressBar(currentIndex);
+                }
+            }, 50);
+        }
+    
+        function handleMouseDown(e) {
+            isDragging = true;
+            const startX = e.pageX;
+            const scrollLeft = scrollContainer.scrollLeft;
+    
+            function handleMouseMove(e) {
+                const x = e.pageX;
+                const distance = x - startX;
+                scrollContainer.scrollLeft = scrollLeft - distance;
+            }
       
-      // Drag functionality
-      function handleMouseDown(e) {
-          isDragging = true;
-          const startX = e.pageX;
-          const scrollLeft = scrollContainer.scrollLeft;
-          
-          function handleMouseMove(e) {
-              const x = e.pageX;
-              const distance = x - startX;
-              scrollContainer.scrollLeft = scrollLeft - distance;
-          }
-          
-          function handleMouseUp() {
-              isDragging = false;
-              document.removeEventListener('mousemove', handleMouseMove);
-              document.removeEventListener('mouseup', handleMouseUp);
-              
-              setTimeout(() => {
-                  const scrollPosition = scrollContainer.scrollLeft;
-                  const activeCardWidth = isMobile ? mobileCardWidth : cardWidth;
-                  const cardWidthWithSpacing = activeCardWidth + cardSpacing;
-                  
-                  const rawIndex = scrollPosition / cardWidthWithSpacing;
-                  let targetIndex = Math.round(rawIndex);
-                  
-                  targetIndex = Math.max(0, Math.min(totalCards - 1, targetIndex));
-                  scrollToIndex(targetIndex);
-                  currentIndex = targetIndex;
-              }, 50);
-          }
-          
-          document.addEventListener('mousemove', handleMouseMove);
-          document.addEventListener('mouseup', handleMouseUp);
-          
-          e.preventDefault();
-      }
+            function handleMouseUp() {
+                isDragging = false;
+                document.removeEventListener('mousemove', handleMouseMove);
+                document.removeEventListener('mouseup', handleMouseUp);
+        
+                setTimeout(() => {
+                const scrollPosition = scrollContainer.scrollLeft;
+                const activeCardWidth = isMobile ? mobileCardWidth : cardWidth;
+                const cardWidthWithSpacing = activeCardWidth + cardSpacing;
+        
+                let targetIndex = Math.round(scrollPosition / cardWidthWithSpacing);
+                targetIndex = Math.max(0, Math.min(totalCards - 1, targetIndex));
+                scrollToIndex(targetIndex);
+                currentIndex = targetIndex;
+                }, 50);
+            }
       
-      // Touch functionality
-      function handleTouchStart(e) {
-          isDragging = true;
-          const startX = e.touches[0].clientX;
-          const scrollLeft = scrollContainer.scrollLeft;
-          
-          function handleTouchMove(e) {
-              const x = e.touches[0].clientX;
-              const distance = x - startX;
-              scrollContainer.scrollLeft = scrollLeft - distance;
-          }
-          
-          function handleTouchEnd() {
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp);
+      
+            e.preventDefault();
+        }
+      
+        function handleTouchStart(e) {
+            isDragging = true;
+            const startX = e.touches[0].clientX;
+            const scrollLeft = scrollContainer.scrollLeft;
+    
+            function handleTouchMove(e) {
+                const x = e.touches[0].clientX;
+                const distance = x - startX;
+                scrollContainer.scrollLeft = scrollLeft - distance;
+            }
+      
+            function handleTouchEnd() {
               isDragging = false;
               document.removeEventListener('touchmove', handleTouchMove);
               document.removeEventListener('touchend', handleTouchEnd);
-              
+      
               setTimeout(() => {
-                  const scrollPosition = scrollContainer.scrollLeft;
-                  const activeCardWidth = isMobile ? mobileCardWidth : cardWidth;
-                  const cardWidthWithSpacing = activeCardWidth + cardSpacing;
-                  
-                  const rawIndex = scrollPosition / cardWidthWithSpacing;
-                  let targetIndex = Math.round(rawIndex);
-                  
-                  targetIndex = Math.max(0, Math.min(totalCards - 1, targetIndex));
-                  scrollToIndex(targetIndex);
-                  currentIndex = targetIndex;
+                const scrollPosition = scrollContainer.scrollLeft;
+                const activeCardWidth = isMobile ? mobileCardWidth : cardWidth;
+                const cardWidthWithSpacing = activeCardWidth + cardSpacing;
+      
+                let targetIndex = Math.round(scrollPosition / cardWidthWithSpacing);
+                targetIndex = Math.max(0, Math.min(totalCards - 1, targetIndex));
+                scrollToIndex(targetIndex);
+                currentIndex = targetIndex;
               }, 50);
-          }
-          
-          document.addEventListener('touchmove', handleTouchMove, { passive: false });
-          document.addEventListener('touchend', handleTouchEnd);
-      }
+            }
       
-      // Event listeners
-      scrollContainer.addEventListener('scroll', handleScroll);
-      scrollContainer.addEventListener('mousedown', handleMouseDown);
-      scrollContainer.addEventListener('touchstart', handleTouchStart);
-      
-      prevButton.addEventListener('click', function() {
-          if (currentIndex > 0) {
-              currentIndex--;
-              scrollToIndex(currentIndex);
-          }
-      });
-      
-      nextButton.addEventListener('click', function() {
-          if (currentIndex < totalCards - 1) {
-              currentIndex++;
-              scrollToIndex(currentIndex);
-          }
-      });
-      
-      // Initialize
-      updateButtons(currentIndex);
-  });
-</script>
-<script>
-  // Initialize Lucide icons
-  lucide.createIcons();
-  
-  // Toggle functionality for mobile view
-  document.addEventListener('DOMContentLoaded', function() {
-    const toggleButton = document.getElementById('toggleButton');
-    const collapsibleContent = document.getElementById('collapsibleContent');
-    const upIcon = document.getElementById('upIcon');
-    const downIcon = document.getElementById('downIcon');
-    
-    let isExpanded = true;
-    
-    toggleButton.addEventListener('click', function() {
-      isExpanded = !isExpanded;
-      
-      if (isExpanded) {
-        collapsibleContent.classList.remove('max-h-0', 'opacity-0');
-        collapsibleContent.classList.add('max-h-96', 'opacity-100');
-        upIcon.classList.remove('hidden');
-        downIcon.classList.add('hidden');
-      } else {
-        collapsibleContent.classList.remove('max-h-96', 'opacity-100');
-        collapsibleContent.classList.add('max-h-0', 'opacity-0');
-        upIcon.classList.add('hidden');
-        downIcon.classList.remove('hidden');
-      }
-    });
-  });
-</script>
-<script defer>
-  document.addEventListener('DOMContentLoaded', () => {
-    const buttons = document.querySelectorAll('.faq-toggle');
-
-    buttons.forEach((button, index) => {
-      button.addEventListener('click', () => {
-        const currentlyOpen = document.querySelector('.faq-answer.show');
-        const currentIcon = document.querySelector('.faq-toggle span.icon.open');
-
-        if (currentlyOpen && currentlyOpen !== button.nextElementSibling) {
-          currentlyOpen.classList.remove('show');
-          currentlyOpen.previousElementSibling.querySelector('.icon').textContent = '+';
-          currentlyOpen.previousElementSibling.querySelector('.icon').classList.remove('open');
+            document.addEventListener('touchmove', handleTouchMove, { passive: false });
+            document.addEventListener('touchend', handleTouchEnd);
         }
-
-        const answer = button.nextElementSibling;
-        const icon = button.querySelector('.icon');
-
-        if (answer.classList.contains('show')) {
-          answer.classList.remove('show');
-          icon.textContent = '+';
-          icon.classList.remove('open');
-        } else {
-          answer.classList.add('show');
-          icon.textContent = '−';
-          icon.classList.add('open');
+      
+        if (scrollContainer) {
+            scrollContainer.addEventListener('scroll', handleScroll);
+            scrollContainer.addEventListener('mousedown', handleMouseDown);
+            scrollContainer.addEventListener('touchstart', handleTouchStart);
         }
-      });
-    });
-  });
-</script>
-  </body>
+      
+        prevButton?.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                scrollToIndex(currentIndex);
+            }
+        });
+      
+        nextButton?.addEventListener('click', () => {
+            if (currentIndex < totalCards - 1) {
+                currentIndex++;
+                scrollToIndex(currentIndex);
+            }
+        });
+    
+        updateButtons(currentIndex);
+      
+        // Collapsible Toggle Section 
+        const toggleButton = document.getElementById('toggleButton');
+        const collapsibleContent = document.getElementById('collapsibleContent');
+        const upIcon = document.getElementById('upIcon');
+        const downIcon = document.getElementById('downIcon');
+    
+        let isExpanded = true;
+      
+        toggleButton?.addEventListener('click', function () {
+            isExpanded = !isExpanded;
+    
+            if (isExpanded) {
+                collapsibleContent.classList.remove('max-h-0', 'opacity-0');
+                collapsibleContent.classList.add('max-h-96', 'opacity-100');
+                upIcon.classList.remove('hidden');
+                downIcon.classList.add('hidden');
+            } else {
+                collapsibleContent.classList.remove('max-h-96', 'opacity-100');
+                collapsibleContent.classList.add('max-h-0', 'opacity-0');
+                upIcon.classList.add('hidden');
+                downIcon.classList.remove('hidden');
+            }
+        });
+      
+        // FAQ Toggle
+        const buttons = document.querySelectorAll('.faq-toggle');
+    
+        buttons.forEach((button) => {
+            button.addEventListener('click', () => {
+            const currentlyOpen = document.querySelector('.faq-answer.show');
+            const currentIcon = document.querySelector('.faq-toggle span.icon.open');
+    
+            if (currentlyOpen && currentlyOpen !== button.nextElementSibling) {
+            currentlyOpen.classList.remove('show');
+            currentlyOpen.previousElementSibling.querySelector('.icon').textContent = '+';
+            currentlyOpen.previousElementSibling.querySelector('.icon').classList.remove('open');
+            }
+    
+            const answer = button.nextElementSibling;
+            const icon = button.querySelector('.icon');
+    
+            if (answer.classList.contains('show')) {
+            answer.classList.remove('show');
+            icon.textContent = '+';
+            icon.classList.remove('open');
+            } else {
+            answer.classList.add('show');
+            icon.textContent = '−';
+            icon.classList.add('open');
+            }
+            });
+            });
+        });
+    </script>
+ 
+</body>
 </html>
